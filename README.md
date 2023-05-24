@@ -1,6 +1,6 @@
-# Nuxt 3 Minimal Starter
+# Catalogue of digital Editions 
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Based on [dig-ed-cat-static](https://github.com/csae8092/dig-ed-cat-static), this is a rework using nuxt and typesense
 
 ## Setup
 
