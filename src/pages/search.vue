@@ -26,7 +26,6 @@ const search = () => {
       query_by: "edition-name",
     })
     .then((searchResults) => {
-      console.log(searchResults);
       results.value = searchResults;
     });
 };
@@ -50,7 +49,11 @@ search();
       <div>time</div>
       <template v-for="hit in results?.hits">
         <div>{{ hit.document.edition }}</div>
-        <div>{{ hit.document["edition-name"] }}</div>
+        <div>
+          <NuxtLink :href="'/editions/' + hit.document.id.replace(/\D/g, '')">
+            {{ hit.document["edition-name"] }}
+          </NuxtLink>
+        </div>
         <div>{{ hit.document.url }}</div>
         <div>{{ hit.document["time-century"] }}</div>
       </template>
