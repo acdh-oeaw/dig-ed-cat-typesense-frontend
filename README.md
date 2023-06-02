@@ -1,6 +1,6 @@
 # Catalogue of digital Editions 
 
-Based on [dig-ed-cat-static](https://github.com/csae8092/dig-ed-cat-static), this is a rework using nuxt and typesense. A live build will be available soon!
+Based on [dig-ed-cat-static](https://github.com/csae8092/dig-ed-cat-static), this is a rework using nuxt. A live build will be available soon!
 
 ## Setup
 
