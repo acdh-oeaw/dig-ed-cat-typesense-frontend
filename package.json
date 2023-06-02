@@ -9,12 +9,13 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@acdh-oeaw/eslint-config": "^1.0.0",
+    "@acdh-oeaw/eslint-config-nuxt": "^1.0.0",
+    "@acdh-oeaw/eslint-config-vue": "^1.0.0",
+    "@acdh-oeaw/prettier-config": "^1.0.0",
+    "@acdh-oeaw/stylelint-config": "^1.0.1",
+    "@acdh-oeaw/tsconfig": "^1.0.0",
     "@headlessui/tailwindcss": "^0.1.3",
-    "@stefanprobst/eslint-config": "^1.1.3",
-    "@stefanprobst/eslint-config-nuxt": "^1.0.2",
-    "@stefanprobst/eslint-config-vue": "^1.0.5",
-    "@stefanprobst/prettier-config": "^3.0.1",
-    "@stefanprobst/tsconfig": "^3.0.2",
     "@tailwindcss/typography": "^0.5.9",
     "@types/node": "^18",
     "eslint": "^8.41.0",
@@ -26,6 +27,9 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@headlessui/vue": "^1.7.13"
+    "@babel/runtime": "^7.22.3",
+    "@headlessui/vue": "^1.7.13",
+    "@heroicons/vue": "^2.0.18",
+    "typesense": "^1.5.4"
   }
 }

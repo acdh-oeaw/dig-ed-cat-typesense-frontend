@@ -6,7 +6,7 @@
 			</div>
 			<div class="grid grid-cols-3 divide-x p-4">
 				<div class="p-4">
-					Why? &emsp; Since 2012 the Catalogue of Digital Editions has been gathering digital
+					<b>Why?</b>&emsp; Since 2012 the Catalogue of Digital Editions has been gathering digital
 					editions and texts in an attempt to survey and identify best practice in the field of
 					digital scholarly editing. Analogous initiatives exist but don't provide the granular
 					analysis of features necessary to better understand the rationale and methodology behind
@@ -15,12 +15,12 @@
 					projects.
 				</div>
 				<div class="p-4">
-					How? &emsp; Development on this web application began in 2016 and aims at delivering the
+					<b>How?</b>&emsp; Development on this web application began in 2016 and aims at delivering the
 					Catalogue data in an interactive and user-friendly manner, allowing users to browse,
 					search, filter and order projects around their research interests.
 				</div>
 				<div class="p-4">
-					What? &emsp; The Catalogue continuously adds digital editions and always seeks external
+					<b>What?</b>&emsp; The Catalogue continuously adds digital editions and always seeks external
 					contributions. For instructions on how to submit a digital edition to the Catalogue,
 					please visit the Documentation page of this site. Projects added will be exposed to over
 					300 German libraries thanks to the Catalogue's integration into the German Library Network
