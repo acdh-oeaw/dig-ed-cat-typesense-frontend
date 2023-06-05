@@ -1,6 +1,6 @@
 # Catalogue of digital Editions 
 
-Based on [dig-ed-cat-static](https://github.com/csae8092/dig-ed-cat-static), this is a rework using nuxt. A live build is available at [acdh-oeaw.github.io/dig-ed-cat-typesense-frontend](acdh-oeaw.github.io/dig-ed-cat-typesense-frontend)
+Based on [dig-ed-cat-static](https://github.com/csae8092/dig-ed-cat-static), this is a rework using nuxt. A live build is available at [acdh-oeaw.github.io/dig-ed-cat-typesense-frontend](https://acdh-oeaw.github.io/dig-ed-cat-typesense-frontend)
 ## Setup
 
 Make sure to install the dependencies:
