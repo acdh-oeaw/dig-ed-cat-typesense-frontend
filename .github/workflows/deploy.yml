@@ -17,7 +17,7 @@ jobs:
           npm -v
           npm install
           npm run generate
-          touch dist/.nojeyll
+          touch dist/.nojekyll
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
