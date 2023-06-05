@@ -8,11 +8,15 @@ export default defineNuxtConfig({
   app: {
     baseURL: "/dig-ed-cat-typesense-frontend/",
   },
+  build: {
+    publicPath: "/dist/",
+  },
   css: ["tailwindcss/tailwind.css"],
   imports: {
     autoImport: false,
   },
   srcDir: "./src/",
+  target: "static",
   postcss: {
     plugins: {
       "tailwindcss/nesting": "postcss-nesting",

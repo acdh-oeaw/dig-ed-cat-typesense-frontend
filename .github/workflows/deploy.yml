@@ -17,9 +17,10 @@ jobs:
           npm -v
           npm install
           npm run generate
+          touch dist/.nojeyll
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: .output/public # The folder the action should deploy.
+          folder: dist # The folder the action should deploy.
