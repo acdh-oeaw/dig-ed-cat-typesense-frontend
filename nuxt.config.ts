@@ -5,6 +5,9 @@ export default defineNuxtConfig({
     "@": fileURLToPath(new URL("./src", import.meta.url)),
     "~": fileURLToPath(new URL("./", import.meta.url)),
   },
+  app: {
+    baseURL: "/dig-ed-cat-typesense-frontend/",
+  },
   build: {
     publicPath: "/dist/",
   },
