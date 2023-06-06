@@ -1,27 +1,26 @@
 <script lang="ts" setup>
 import { ref, useRoute } from "#imports";
+import { ArrowPathIcon } from "@heroicons/vue/24/solid";
 import Typesense from "typesense";
-import { useDefaultClient } from "@/utils/search-clients";
+import { getDocument } from "@/composable/use-data";
 
 const route = useRoute();
 const id = route.params.id;
 
-const client = useDefaultClient();
 const results = ref();
 
 const loading = ref(true);
-client
-  .collections("dig-ed-cat")
-  .documents(`entry-${id}.html`)
-  .retrieve()
-  .then((response) => {
-    results.value = response;
-    loading.value = false;
-  });
+getDocument(`entry-${id}.html`).then((data) => {
+  results.value = data.value;
+  loading.value = false;
+});
 </script>
 <template>
-  <div v-if="!loading">
-    <div class="grid grid-cols-2">
+  <centered v-if="loading">
+    <arrow-path-icon class="h-5 w-5 animate-spin" />
+  </centered>
+  <div v-else>
+    <div class="grid grid-cols-2 max-w-container mx-auto">
       <template v-for="[key, val] in Object.entries(results)">
         <span>
           {{ key }}

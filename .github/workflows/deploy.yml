@@ -2,7 +2,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main # only deploy this when pushing to master
+      - main # only deploy this when pushing to main
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest

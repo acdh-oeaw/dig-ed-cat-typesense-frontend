@@ -13,7 +13,7 @@ import { HomeIcon } from "@heroicons/vue/24/solid";
         <div>
           <nuxt-link
             href="/"
-            class="hover:bg-slate-200 transition rounded p-4 block"
+            class="hover:bg-slate-200 active:bg-slate-300 transition rounded p-4 block"
           >
             <span class="sr-only">Home</span>
             <home-icon class="w-6 h-6" />
@@ -21,7 +21,7 @@ import { HomeIcon } from "@heroicons/vue/24/solid";
         </div>
         <div>
           <nuxt-link
-            class="text-lg rounded p-4 hover:bg-slate-200 transition"
+            class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition"
             href="/search"
           >
             Search
