@@ -7,7 +7,7 @@ import {
 } from "typesense/lib/Typesense/Documents";
 
 export async function getDocument(id: string) {
-  const { data, error } = await useAsyncData("editions", () =>
+  const { data, error } = await useAsyncData("edition", () =>
     useDefaultClient().collections("dig-ed-cat").documents(id).retrieve()
   );
   if (error) console.error(error);
