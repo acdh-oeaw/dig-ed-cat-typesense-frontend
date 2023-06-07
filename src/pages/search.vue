@@ -47,13 +47,17 @@ search();
       class="h-8 mx-auto my-4 p-4 rounded border"
       placeholder="Search..."
     />
-    <centered v-if="loading">
+    <centered class="-z-10" v-if="loading">
       <arrow-path-icon class="h-5 w-5 animate-spin" />
     </centered>
     <div class="flex justify-between items-center my-2" v-else>
       <button
-        :class="page <= 1 && 'text-gray-400 cursor-not-allowed'"
-        class="p-4 border rounded cursor-pointer hover:bg-slate-200 active:bg-slate-300 transition"
+        class="p-4 border rounded transition"
+        :class="
+          page <= 1
+            ? 'text-gray-400 cursor-not-allowed'
+            : 'cursor-pointer hover:bg-slate-200 active:bg-slate-300'
+        "
         :disabled="page <= 1"
         @click="
           page--;
@@ -69,10 +73,11 @@ search();
         {{ results?.found }}
       </span>
       <button
-        class="p-4 border rounded cursor-pointer hover:bg-slate-200 active:bg-slate-300 transition"
+        class="p-4 border rounded transition"
         :class="
-          page * limit >= Number(results?.found) &&
-          'text-gray-400 cursor-not-allowed'
+          page * limit >= Number(results?.found)
+            ? 'text-gray-400 cursor-not-allowed'
+            : 'cursor-pointer hover:bg-slate-200 active:bg-slate-300'
         "
         :disabled="page * limit >= Number(results?.found)"
         @click="
@@ -92,7 +97,7 @@ search();
         <div>
           <nuxt-link
             class="hover:underline"
-            :href="'/editions/' + hit.document.id.replace(/\D/g, '')"
+            :href="'/editions/' + hit.document.id"
           >
             {{ hit.document["edition-name"] }}
           </nuxt-link>

@@ -6,11 +6,17 @@ import {
   type SearchResponse,
 } from "typesense/lib/Typesense/Documents";
 
-export async function getDocument(id: string) {
+export async function getDocument<CollectionEntry extends Record<string, any>>(
+  id: string
+) {
   const { data, error } = await useAsyncData("edition", () =>
-    useDefaultClient().collections("dig-ed-cat").documents(id).retrieve()
+    useDefaultClient()
+      .collections<CollectionEntry>("dig-ed-cat")
+      .documents(id)
+      .retrieve()
   );
   if (error) console.error(error);
+  else console.log(data);
 
   return data;
 }

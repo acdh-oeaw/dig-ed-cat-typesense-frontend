@@ -24,7 +24,7 @@ export interface Edition {
   images: pseudoBool;
   indices: pseudoBool;
   infrastructure: string[];
-  "institution-s": string[];
+  "institution-s": object[];
   language: string[];
   "linked-open-data": pseudoBool;
   "links-to-ext-resources": pseudoBool;
@@ -53,4 +53,19 @@ export interface Edition {
   "xml-tei-available-to-download": pseudoBool;
   "xml-tei-transcription": pseudoBool;
   "zoom-images": pseudoBool;
+}
+
+export interface Institution {
+  id: string;
+  "institution-gnd": string;
+  "institution-lat": string;
+  "institution-lng": string;
+  "institution-name": string;
+  "institution-website": string;
+  "located-at": string;
+  "location-geonames-id": string;
+  "location-lat": string;
+  "location-lng": string;
+  "part-of": string;
+  "type-of-location": string;
 }
