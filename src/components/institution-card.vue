@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="m-5 rounded border border-slate-200">
+  <div class="rounded border border-slate-200">
     <div class="p-5">
       <h1 class="text-2xl">{{ institution["institution-name"] }}</h1>
       <h2>{{ institution["located-at"] }}, {{ institution["part-of"] }}</h2>
@@ -23,13 +23,16 @@ const props = defineProps<{
         }}</a>
       </h3>
     </div>
-    <leaflet-map
-      :points="[
-        {
-          lat: institution['institution-lat'],
-          long: institution['institution-lng'],
-        },
-      ]"
-    />
+    <client-only>
+      <leaflet-map
+        :points="[
+          {
+            lat: institution['institution-lat'],
+            long: institution['institution-lng'],
+          },
+        ]"
+        :name="institution['institution-name']"
+      />
+    </client-only>
   </div>
 </template>

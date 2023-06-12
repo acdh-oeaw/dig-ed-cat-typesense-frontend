@@ -1,58 +1,66 @@
-type pseudoBool = "0" | "0.5" | "1" | "not provided";
+export const pseudoBool = [
+  "0",
+  "0.5",
+  "1",
+  "1.5",
+  "2",
+  "not provided",
+] as const;
+export type PseudoBool = (typeof pseudoBool)[number];
 
 export interface Edition {
-  "account-of-textual-variance": pseudoBool;
-  "advanced-search": pseudoBool;
-  api: pseudoBool;
+  "account-of-textual-variance": PseudoBool;
+  "advanced-search": PseudoBool;
+  api: PseudoBool;
   audience: string[];
   "begin-date": string;
-  "budget-rough": pseudoBool;
-  citation: pseudoBool;
-  "creative-commons-license": pseudoBool;
-  crowdsourcing: pseudoBool;
-  "current-availability": pseudoBool;
-  digital: pseudoBool;
-  edition: pseudoBool;
+  "budget-rough": PseudoBool;
+  citation: PseudoBool;
+  "creative-commons-license": PseudoBool;
+  crowdsourcing: PseudoBool;
+  "current-availability": PseudoBool;
+  digital: PseudoBool;
+  edition: PseudoBool;
   "edition-name": string;
   "end-date": string;
-  feedback: pseudoBool;
-  glossary: pseudoBool;
-  "handle-pid": pseudoBool;
+  feedback: PseudoBool;
+  glossary: PseudoBool;
+  "handle-pid": PseudoBool;
   "historical-period": string;
   id: string;
-  "image-manipulation-brightness-rotation-etc": pseudoBool;
-  images: pseudoBool;
-  indices: pseudoBool;
+  "image-manipulation-brightness-rotation-etc": PseudoBool;
+  images: PseudoBool;
+  indices: PseudoBool;
   infrastructure: string[];
   "institution-s": object[];
   language: string[];
-  "linked-open-data": pseudoBool;
-  "links-to-ext-resources": pseudoBool;
+  "linked-open-data": PseudoBool;
+  "links-to-ext-resources": PseudoBool;
   "manager-or-editor": string[];
-  "mobile-friendly-application": pseudoBool;
+  "mobile-friendly-application": PseudoBool;
   "ocr-or-keyed": string[];
   "open-source-open-access": string;
-  "philological-statement": pseudoBool;
+  "philological-statement": PseudoBool;
   "place-of-origin-of-source-material-s": string[];
   "print-facsimile-complementary-output": string;
   "print-friendly-view": string;
   "repository-of-source-material-s": string[];
-  "ride-review": pseudoBool;
-  "sahle-catalog": pseudoBool;
-  scholarly: pseudoBool;
+  "ride-review": PseudoBool;
+  "sahle-catalog": PseudoBool;
+  scholarly: PseudoBool;
   "source-text-translation": string[];
   "sponsor-funding-body": string[];
-  "string-matching": pseudoBool;
-  "technological-statement": pseudoBool;
-  "text-image-linking": pseudoBool;
+  "string-matching": PseudoBool;
+  "technological-statement": PseudoBool;
+  "text-image-linking": PseudoBool;
   "time-century": "1475-1520";
   url: string;
   "value-of-witnesses": string;
   "website-language": string;
   "writing-support": string[];
-  "xml-tei-available-to-download": pseudoBool;
-  "xml-tei-transcription": pseudoBool;
-  "zoom-images": pseudoBool;
+  "xml-tei-available-to-download": PseudoBool;
+  "xml-tei-transcription": PseudoBool;
+  "zoom-images": PseudoBool;
 }
 
 export interface Institution {

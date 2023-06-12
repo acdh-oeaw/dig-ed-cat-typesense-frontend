@@ -9,6 +9,8 @@ import {
 export async function getDocument<CollectionEntry extends Record<string, any>>(
   id: string
 ) {
+  // not working on reload as of now
+  /*
   const { data, error } = await useAsyncData("edition", () =>
     useDefaultClient()
       .collections<CollectionEntry>("dig-ed-cat")
@@ -17,7 +19,13 @@ export async function getDocument<CollectionEntry extends Record<string, any>>(
   );
   if (error) console.error(error);
   else console.log(data);
+  return data;
+  */
 
+  const data = useDefaultClient()
+    .collections<CollectionEntry>("dig-ed-cat")
+    .documents(id)
+    .retrieve();
   return data;
 }
 
