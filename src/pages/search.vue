@@ -57,7 +57,7 @@ search();
       {{ facetValues }}
       <div v-if="!loading" v-for="(facet, i) in results?.facet_counts">
         <h1 class="text-2xl">
-          {{ facet.field_name }}
+          {{ koi[facet.field_name] }}
         </h1>
         <div></div>
         <div v-for="count in facet.counts" class="flex items-center gap-1">
