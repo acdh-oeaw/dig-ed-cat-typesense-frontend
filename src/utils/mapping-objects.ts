@@ -1,0 +1,52 @@
+export const koi = {
+  // keys of interest
+  url: "URL",
+  "historical-period": "Historical Period",
+  "time-century": "Time/Century",
+  scholarly: "Scholarly",
+  digital: "Digital",
+  edition: "Edition",
+  "writing-support": "Writing Support",
+  language: "Language",
+  "begin-date": "Begin Date",
+  "end-date": "End Date",
+  "manager-or-editor": "Manager",
+  "repository-of-source-material-s": "Repository of Source Material(s)",
+  audience: "Audience",
+  "philological-statement": "Philological Statement",
+  "account-of-textual-variance": "Account of textual variance",
+  "value-of-witnesses": "Value of witnesses",
+  "xml-tei-transcription": "XML-TEI transcription",
+  "xml-tei-available-to-download": "XML(-TEI) transcription to download",
+  images: "Images",
+  "zoom-images": "Zoom images",
+  "image-manipulation-brightness-rotation-etc": "Image manipulation",
+  "text-image-linking": "Text-image linking",
+  "website-language": "Website language",
+  glossary: "Glossary",
+  indices: "Indices",
+  "string-matching": "String matching search",
+  "advanced-search": "Advanced Search",
+  "creative-commons-license": "Creative Commons License",
+  "open-source-open-access": "Open Source/Open Access",
+  "ocr-or-keyed": "OCR or keyed",
+  "print-friendly-view": "Print-frienfly view",
+  "budget-rough": "Budget",
+  infrastructure: "Infrastructure",
+  api: "API",
+  "ride-review": "RIDE review",
+  "sahle-catalog": "Sahle Catalog",
+  "handle-pid": "handle",
+};
+
+export const flipKoi = Object.entries(koi).map(([key, value]) => [value, key]); // flips keys and values
+
+export const pseudoBoolTranslation = {
+  0: "no",
+  "0.5": "partial",
+  1: "yes",
+  "1.5":
+    "Open Access and Open Source. Part of the data underlying the digital edition is freely available for access and reuse.",
+  "2": "yes and yes",
+  "not provided": "unknown",
+};

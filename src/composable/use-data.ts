@@ -22,11 +22,10 @@ export async function getDocument<CollectionEntry extends Record<string, any>>(
   return data;
   */
 
-  const data = useDefaultClient()
+  return useDefaultClient()
     .collections<CollectionEntry>("dig-ed-cat")
     .documents(id)
     .retrieve();
-  return data;
 }
 
 export async function getDocuments<CollectionEntry extends Record<string, any>>(

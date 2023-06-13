@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { type Institution } from "@/utils/types";
 import leafletMap from "@/components/map.vue";
+import externalLink from "@/components/external-link.vue";
 
 const props = defineProps<{
   institution: Institution;
@@ -13,14 +14,10 @@ const props = defineProps<{
       <h1 class="text-2xl">{{ institution["institution-name"] }}</h1>
       <h2>{{ institution["located-at"] }}, {{ institution["part-of"] }}</h2>
       <h3 class="text-sm">
-        <a :href="institution['institution-website']">{{
-          institution["institution-website"]
-        }}</a>
+        <external-link :href="institution['institution-website']" />
       </h3>
       <h3 class="text-sm">
-        <a :href="institution['institution-gnd']">{{
-          institution["institution-gnd"]
-        }}</a>
+        <external-link :href="institution['institution-gnd']" />
       </h3>
     </div>
     <client-only>
