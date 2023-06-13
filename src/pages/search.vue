@@ -31,9 +31,6 @@ let facetValues = ref({
   "end-date": [],
 });
 
-const facetCat = Object.keys(facetValues.value);
-console.log(facetCat);
-
 const search = async () => {
   loading.value = true;
   results = await getDocuments<Edition>({
@@ -41,7 +38,7 @@ const search = async () => {
     query_by: "edition-name",
     per_page: 250,
     page,
-    facet_by: facetCat.join(","),
+    facet_by: Object.keys(facetValues.value).join(","),
     // max_facet_values: 500,
   });
   console.log(results.value);
@@ -55,7 +52,7 @@ search();
   <div class="grid grid-cols-[auto_1fr]">
     <div>
       {{ facetValues }}
-      <div v-if="!loading" v-for="(facet, i) in results?.facet_counts">
+      <div v-if="!loading" v-for="facet in results?.facet_counts">
         <h1 class="text-2xl">
           {{ koi[facet.field_name] }}
         </h1>
@@ -65,7 +62,7 @@ search();
             type="checkbox"
             :id="count.value"
             :value="count.value"
-            v-model="facetValues[facetCat[i]]"
+            v-model="facetValues[facet.field_name]"
           />
           &nbsp;
           <label
