@@ -7,11 +7,11 @@ import {
   type SearchResponseHit,
 } from "typesense/lib/Typesense/Documents";
 import { type Edition } from "@/utils/types";
-import { koi } from "@/utils/mapping-objects";
 import centered from "@/components/centered.vue";
 import internalLink from "@/components/internal-link.vue";
 import externalLink from "@/components/external-link.vue";
 import chip from "@/components/chip.vue";
+import Key from "typesense/lib/Typesense/Key";
 
 const route = useRoute();
 
@@ -31,6 +31,22 @@ let facetValues = ref({
   "end-date": [],
 });
 
+const facetObjectToQuery = (facetObject) => {
+  const retArray = [];
+  Object.entries(facetObject).forEach(([key, value]) => {
+    console.log("facets", key, value);
+
+    if (value && value.length != 0) {
+      retArray.push(key + ":=[`" + value.join("`,`") + "`]");
+    }
+  });
+  console.log("retArray", retArray);
+
+  return retArray.join(" && ");
+
+  // historical-period:=[`Middle Ages`,`Long Nineteenth Century`,`Early Modern`] && time-century:=[`14th`]"
+};
+
 const search = async () => {
   loading.value = true;
   results = await getDocuments<Edition>({
@@ -39,6 +55,7 @@ const search = async () => {
     per_page: 250,
     page,
     facet_by: Object.keys(facetValues.value).join(","),
+    filter_by: facetObjectToQuery(facetValues.value),
     // max_facet_values: 500,
   });
   console.log(results.value);
@@ -52,29 +69,15 @@ search();
   <div class="grid grid-cols-[auto_1fr]">
     <div>
       {{ facetValues }}
-      <div v-if="!loading" v-for="facet in results?.facet_counts">
-        <h1 class="text-2xl">
-          {{ koi[facet.field_name] }}
-        </h1>
-        <div></div>
-        <div v-for="count in facet.counts" class="flex items-center gap-1">
-          <input
-            type="checkbox"
-            :id="count.value"
-            :value="count.value"
-            v-model="facetValues[facet.field_name]"
-          />
-          &nbsp;
-          <label
-            :for="count.value"
-            class="flex justify-between gap-1 w-full items-center"
-            >{{ count.value }}
-            <chip>
-              {{ count.count }}
-            </chip></label
-          >
-        </div>
-      </div>
+      <facet-field
+        v-if="!loading"
+        v-for="facet in results?.facet_counts"
+        :facet="facet"
+        @facetChange="
+          facetValues[facet.field_name] = $event;
+          search();
+        "
+      />
     </div>
     <div class="max-w-container">
       <input

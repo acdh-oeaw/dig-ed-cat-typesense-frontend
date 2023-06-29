@@ -77,3 +77,22 @@ export interface Institution {
   "part-of": string;
   "type-of-location": string;
 }
+
+export interface Facet {
+  count: number;
+  highlighted: string;
+  value: string;
+}
+export interface FacetStats {
+  total_values?: number;
+  avg?: number;
+  max?: number;
+  min?: number;
+  sum?: number;
+}
+
+export interface FacetField {
+  field_name: keyof Edition;
+  counts: Array<Facet>;
+  stats: FacetStats;
+}
