@@ -33,7 +33,6 @@ export async function getDocuments<CollectionEntry extends Record<string, any>>(
   query: SearchParams | SearchParamsWithPreset,
   collection: string = "editions"
 ) {
-  console.log("getDocuments params:", query, collection);
 
   const { data, error } = await useAsyncData(collection, () =>
     useDefaultClient()
@@ -41,8 +40,8 @@ export async function getDocuments<CollectionEntry extends Record<string, any>>(
       .documents()
       .search(query)
   );
-  if (error) console.error(error);
 
+  if (error) console.error(error);
   return data;
 }
 
@@ -50,8 +49,6 @@ export async function getFacets<CollectionEntry extends Record<string, any>>(
   facets: string,
   max: number = 500
 ) {
-  console.log("Facet props:", facets, max);
-
   const { data, error } = await useAsyncData("facets", () =>
     useDefaultClient()
       .collections<CollectionEntry>("dig-ed-cat")
@@ -64,7 +61,7 @@ export async function getFacets<CollectionEntry extends Record<string, any>>(
         max_facet_values: max,
       })
   );
-  if (error) console.error(error);
 
+  if (error) console.error(error);
   return data;
 }
