@@ -1,16 +1,17 @@
 <script lang="ts" setup>
 import { useRoute, ref } from "#imports";
-import { ChevronUpIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
+import centered from "@/components/centered.vue";
+import externalLink from "@/components/external-link.vue";
+import internalLink from "@/components/internal-link.vue";
 import { getDocuments } from "@/composable/use-data";
+import { type Edition } from "@/utils/types";
+import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
+import { ChevronUpIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
+import { log } from "console";
 import {
   type SearchResponse,
   type SearchResponseHit,
 } from "typesense/lib/Typesense/Documents";
-import { type Edition } from "@/utils/types";
-import centered from "@/components/centered.vue";
-import internalLink from "@/components/internal-link.vue";
-import externalLink from "@/components/external-link.vue";
-import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 
 const route = useRoute();
 
@@ -34,13 +35,11 @@ const facetObjectToQuery = (facetObject: object) => {
   const retArray: string[] = [];
   Object.entries(facetObject).forEach(([key, value]) => {
     if (value && value.length != 0) {
-      retArray.push(key + ":=[`" + value.join("`,`") + "`]");
+      retArray.push(value.map((x: string) => `${key}:="${x}"`).join("&&"));
     }
   });
-
-  return retArray.join(" && ");
-
-  // historical-period:=[`Middle Ages`,`Long Nineteenth Century`,`Early Modern`] && time-century:=[`14th`]"
+  const query = retArray.join(" && ");
+  return query;
 };
 
 const search = async () => {
@@ -54,6 +53,7 @@ const search = async () => {
     filter_by: facetObjectToQuery(facetValues.value),
     // max_facet_values: 500,
   });
+  console.log(results.value);
 
   loading.value = false;
 };
@@ -62,7 +62,7 @@ search();
 </script>
 <template>
   <div>
-    <div class="flex items-center max-w-container mx-auto">
+    <div class="mx-auto flex max-w-container items-center px-2">
       <input
         type="search"
         v-model="input"
@@ -70,26 +70,26 @@ search();
           page = 1;
           search();
         "
-        class="h-8 mx-auto my-4 p-4 rounded border min-w-full"
+        class="mx-auto my-4 h-16 min-w-full rounded border p-4 shadow"
         placeholder="Search..."
       />
     </div>
     <div>
       <div
-        class="grid lg:grid-cols-[1fr_3fr] divide-y lg:divide-y-0 p-4 gap-10 min-w-full"
+        class="grid min-w-full gap-4 divide-y p-4 lg:grid-cols-[1fr_3fr_1fr] lg:gap-32 lg:divide-y-0 lg:px-16"
       >
         <disclosure as="div" v-slot="{ open }" class="flex flex-col pt-10">
           <disclosure-button
-            class="rounded transition hover:bg-slate-200 active:bg-slate-300 flex items-center gap-2 justify-center text-xl align-top"
+            class="flex items-center justify-end gap-2 rounded align-top text-xl transition hover:bg-slate-200 active:bg-slate-300 lg:justify-center"
           >
             {{ open ? "Hide" : "Show" }} Filters...
-            <ChevronUpIcon class="rotate-180 ui-open:rotate-0 h-5 w-5" />
+            <ChevronUpIcon class="h-5 w-5 rotate-180 ui-open:rotate-0" />
           </disclosure-button>
-          <disclosure-panel>
+          <disclosure-panel as="div" class="flex flex-col gap-2 divide-y">
             <facet-field
+              class="pt-2"
               v-if="!loading"
               v-for="facet in results?.facet_counts"
-              :key="facet.field_name"
               :facet="facet"
               :selected="facetValues[facet.field_name]"
               @facetChange="
@@ -103,12 +103,12 @@ search();
           <arrow-path-icon class="h-5 w-5 animate-spin" />
         </centered>
         <div v-else class="min-w-full">
-          <div class="flex justify-between items-center my-2">
+          <div class="my-2 flex items-center justify-between">
             <button
-              class="p-4 border rounded transition"
+              class="rounded border p-4 transition"
               :class="
                 page <= 1
-                  ? 'text-gray-400 cursor-not-allowed'
+                  ? 'cursor-not-allowed text-gray-400'
                   : 'cursor-pointer hover:bg-slate-200 active:bg-slate-300'
               "
               :disabled="page <= 1"
@@ -118,7 +118,7 @@ search();
               "
             >
               <span class="sr-only">Previous Page</span>
-              <chevron-up-icon class="w-4 h-4 -rotate-90" />
+              <chevron-up-icon class="h-4 w-4 -rotate-90" />
             </button>
             <span
               >showing {{ (page - 1) * limit + 1 }} -
@@ -126,10 +126,10 @@ search();
               {{ results?.found }}
             </span>
             <button
-              class="p-4 border rounded transition"
+              class="rounded border p-4 transition"
               :class="
                 page * limit >= Number(results?.found)
-                  ? 'text-gray-400 cursor-not-allowed'
+                  ? 'cursor-not-allowed text-gray-400'
                   : 'cursor-pointer hover:bg-slate-200 active:bg-slate-300'
               "
               :disabled="page * limit >= Number(results?.found)"
@@ -139,26 +139,32 @@ search();
               "
             >
               <span class="sr-only">Next Page</span>
-              <chevron-up-icon class="w-4 h-4 rotate-90" />
+              <chevron-up-icon class="h-4 w-4 rotate-90" />
             </button>
           </div>
           <div
-            class="grid grid-cols-[5fr_3fr_2fr] gap-y-2 gap-x-8 min-w-full"
+            class="grid min-w-full grid-cols-[5fr_3fr_2fr] gap-x-8 gap-y-2"
             v-if="!loading"
           >
             <div>Name</div>
             <div>url</div>
-            <div>time</div>
+            <div class="text-right">time</div>
             <template v-for="hit in results?.hits">
-              <div>
+              <div class="-ml-2">
                 <internal-link :href="'/editions/' + hit.document.id">
-                  {{ hit.document["edition-name"] }}
+                  <span
+                    v-if="hit.highlight['edition-name']?.snippet"
+                    v-html="hit.highlight['edition-name']?.snippet"
+                  />
+                  <span v-else>
+                    {{ hit.document["edition-name"] }}
+                  </span>
                 </internal-link>
               </div>
               <div class="flex items-center">
                 <external-link :href="hit.document.url" />
               </div>
-              <div class="flex items-center">
+              <div class="flex items-center justify-end">
                 {{ hit.document["time-century"] }}
               </div>
             </template>
@@ -168,3 +174,11 @@ search();
     </div>
   </div>
 </template>
+<style>
+mark {
+  margin: -1px;
+  padding: 1px;
+  border-radius: 2px;
+  background-color: #cbd5e1;
+}
+</style>

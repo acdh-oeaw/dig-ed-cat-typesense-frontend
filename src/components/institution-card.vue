@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { type Institution } from "@/utils/types";
-import leafletMap from "@/components/map.vue";
 import externalLink from "@/components/external-link.vue";
+import leafletMap from "@/components/mapComponent.vue";
+import { type Institution } from "@/utils/types";
 
 const props = defineProps<{
   institution: Institution;
@@ -29,6 +29,7 @@ const props = defineProps<{
           },
         ]"
         :name="institution['institution-name']"
+        class="h-64 w-full"
       />
     </client-only>
   </div>

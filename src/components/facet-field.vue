@@ -9,38 +9,34 @@ const props = defineProps<{
   facet: FacetField;
   selected: string[];
 }>();
-
+ 
 let facetModel = ref(props.selected);
 let loading = ref(false);
-let showAll = ref(true);
 
 let scopeFacet = ref(props.facet);
 
 const loadFacets = async () => {
   loading.value = true;
   const results = await getFacets(scopeFacet.value.field_name);
-  console.log(results);
 
   scopeFacet.value = results.value?.facet_counts?.length
     ? results.value?.facet_counts[0]
     : [];
-  showAll.value = false;
   loading.value = false;
 };
 </script>
 <template>
   <div class="flex flex-col">
-    <h1 class="text-2xl flex justify-between items-center">
+    <h1 class="flex items-center justify-between text-2xl">
       {{ koi[scopeFacet.field_name] }}
-      <chip>{{ scopeFacet.stats.total_values }}</chip>
     </h1>
     <div
-      class="p-1 flex items-center rounded transition active:bg-slate-300 hover:bg-slate-200 gap-2"
+      class="flex items-center gap-2 rounded p-1 transition hover:bg-slate-200 active:bg-slate-300"
       v-for="count in scopeFacet.counts"
     >
       <input
         type="checkbox"
-        class="cursor-pointer h-5 w-5"
+        class="h-5 w-5 cursor-pointer"
         :id="count.value"
         :value="count.value"
         @change="$emit('facetChange', facetModel)"
@@ -49,7 +45,7 @@ const loadFacets = async () => {
       &nbsp;
       <label
         :for="count.value"
-        class="flex justify-between gap-1 w-full items-center cursor-pointer"
+        class="flex w-full cursor-pointer items-center justify-between gap-1"
         >{{ count.value }}
         <chip>
           {{ count.count }}
@@ -57,11 +53,11 @@ const loadFacets = async () => {
       >
     </div>
     <div
-      v-if="showAll"
-      class="cursor-pointer hover:bg-slate-200 active:bg-slate-300 rounded transition p-1 flex items-center justify-center gap-2"
+      v-if="scopeFacet.stats.total_values != scopeFacet.counts.length"
+      class="flex cursor-pointer items-center justify-center gap-2 rounded p-1 transition hover:bg-slate-200 active:bg-slate-300"
       @click="loadFacets"
     >
-      <span> show all... </span>
+      <span> show all... ({{ scopeFacet.stats.total_values }} total)</span>
       <chevron-down-icon class="h-5 w-5" />
     </div>
   </div>

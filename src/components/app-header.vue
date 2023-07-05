@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { HomeIcon } from "@heroicons/vue/24/solid";
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+import { ChevronDownIcon, HomeIcon } from "@heroicons/vue/24/solid";
 </script>
 <template>
   <header class="bg-slate-100">
@@ -24,8 +25,40 @@ import { HomeIcon } from "@heroicons/vue/24/solid";
             class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition"
             href="/search"
           >
-            Search
+            Browse
           </nuxt-link>
+        </div>
+        <div>
+          <Menu as="div" class="relative inline-block">
+            <MenuButton
+              as="div"
+              class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 ui-open:bg-slate-300 transition flex items-center cursor-pointer"
+            >
+              Analysis &nbsp; <ChevronDownIcon class="h-5 w-5" />
+            </MenuButton>
+            <MenuItems class="absolute right-0 shadow-lg mt-4">
+              <div
+                class="flex flex-col bg-slate-50 rounded divide-y min-w-[12rem] text-center"
+              >
+                <MenuItem>
+                  <nuxt-link
+                    class="text-lg p-4 hover:bg-slate-200 active:bg-slate-300 transition"
+                    href="/map"
+                  >
+                    Map
+                  </nuxt-link>
+                </MenuItem>
+                <MenuItem>
+                  <nuxt-link
+                    class="text-lg p-4 hover:bg-slate-200 active:bg-slate-300 transition"
+                    href="/"
+                  >
+                    Faux Item
+                  </nuxt-link>
+                </MenuItem>
+              </div>
+            </MenuItems>
+          </Menu>
         </div>
       </div>
     </div>

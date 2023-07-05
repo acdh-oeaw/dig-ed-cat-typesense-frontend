@@ -1,10 +1,10 @@
 <template>
-  <div class="max-w-container mx-auto">
-    <div class="flex-col flex divide-y">
+  <div class="mx-auto max-w-container">
+    <div class="flex flex-col divide-y">
       <div class="p-4">
         <img src="@/assets/images/DigEds_Cat_logo_transp.png" alt="" />
       </div>
-      <div class="grid lg:grid-cols-3 divide-y lg:divide-x lg:divide-y-0 p-4">
+      <div class="grid divide-y p-4 lg:grid-cols-3 lg:divide-x lg:divide-y-0">
         <div class="p-4">
           <b>Why?</b>&emsp; Since 2012 the Catalogue of Digital Editions has
           been gathering digital editions and texts in an attempt to survey and
