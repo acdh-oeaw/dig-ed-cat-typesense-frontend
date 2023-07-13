@@ -1,11 +1,11 @@
 import { useDefaultClient, useAsyncData } from "#imports";
-import { type Ref } from "vue";
+import { log } from "console";
 import {
   type SearchParams,
   type SearchParamsWithPreset,
   type SearchResponse,
 } from "typesense/lib/Typesense/Documents";
-import { log } from "console";
+import { type Ref } from "vue";
 
 export async function getDocument<CollectionEntry extends Record<string, any>>(
   id: string
@@ -33,7 +33,6 @@ export async function getDocuments<CollectionEntry extends Record<string, any>>(
   query: SearchParams | SearchParamsWithPreset,
   collection: string = "editions"
 ) {
-
   const { data, error } = await useAsyncData(collection, () =>
     useDefaultClient()
       .collections<CollectionEntry>("dig-ed-cat")
@@ -63,5 +62,6 @@ export async function getFacets<CollectionEntry extends Record<string, any>>(
   );
 
   if (error) console.error(error);
+  else console.log(data);
   return data;
 }

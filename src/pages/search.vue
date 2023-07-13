@@ -29,6 +29,7 @@ let facetValues = ref({
   audience: [],
   "begin-date": [],
   "end-date": [],
+  "institution-s.institution-name": [],
 });
 
 const facetObjectToQuery = (facetObject: object) => {

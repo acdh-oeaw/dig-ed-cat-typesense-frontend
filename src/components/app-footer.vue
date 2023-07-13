@@ -1,13 +1,21 @@
 <template>
-  <footer>
+  <footer class="w-screen shadow z-10">
     <div
-      class="mx-auto grid w-full max-w-[20rem] gap-8 px-8 py-4 text-xs sm:max-w-container sm:grid-cols-7 sm:text-sm"
+      class="grid mx-auto sm:grid-cols-2 gap-8 px-8 py-4 text-xs sm:max-w-container sm:text-sm"
     >
       <div>
-        <img src="@/assets/images/logo-acdh-with-text.svg" alt="" />
+        <img
+          src="@/assets/images/logo-acdh-with-text.svg"
+          alt=""
+          class="max-h-16 mx-auto"
+        />
       </div>
       <div>
-        <img src="@/assets/images/logo-oeaw.svg" alt="" />
+        <img
+          src="@/assets/images/logo-oeaw.svg"
+          alt=""
+          class="max-h-16 mx-auto"
+        />
       </div>
     </div>
   </footer>

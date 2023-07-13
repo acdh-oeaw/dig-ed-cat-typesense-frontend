@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { ref, useRoute } from "#imports";
-import { ArrowPathIcon, LinkIcon } from "@heroicons/vue/24/solid";
-import { getDocument } from "@/composable/use-data";
-import { pseudoBool, type PseudoBool } from "@/utils/types";
-import { koi, pseudoBoolTranslation } from "@/utils/mapping-objects";
-import institutionCard from "@/components/institution-card.vue";
 import externalLink from "@/components/external-link.vue";
+import institutionCard from "@/components/institution-card.vue";
+import { getDocument } from "@/composable/use-data";
+import { koi, pseudoBoolTranslation } from "@/utils/mapping-objects";
+import { pseudoBool, type Institution, type PseudoBool } from "@/utils/types";
+import { ArrowPathIcon, LinkIcon } from "@heroicons/vue/24/solid";
 
 const route = useRoute();
 const id = route.params.id;
@@ -39,7 +39,16 @@ loading.value = false;
             v-else-if="typeof results[key] === 'object'"
             class="p-1 border-b"
           >
-            {{ results[key].join(", ") }}
+            <template v-if="typeof results[key][0] === 'string'">
+              {{ results[key].join(", ") }}
+            </template>
+            <template v-else>
+              {{
+                results[key]
+                  .map((obj: Institution) => obj["institution-name"])
+                  .join(", ")
+              }}
+            </template>
           </span>
           <span v-else-if="key === 'url'" class="border-b">
             <external-link :href="results[key]" />

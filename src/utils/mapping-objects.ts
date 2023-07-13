@@ -37,6 +37,7 @@ export const koi = {
   "ride-review": "RIDE review",
   "sahle-catalog": "Sahle Catalog",
   "handle-pid": "handle",
+  "institution-s": "Institutions",
 };
 
 export const flipKoi = Object.entries(koi).map(([key, value]) => [value, key]); // flips keys and values

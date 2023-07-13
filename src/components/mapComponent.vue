@@ -40,5 +40,5 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div :id="`map-${name}`" class="relative bg-slate-200" />
+  <div :id="`map-${name}`" class="relative bg-slate-200 z-0" />
 </template>

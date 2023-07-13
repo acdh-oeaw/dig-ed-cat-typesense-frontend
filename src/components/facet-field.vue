@@ -1,15 +1,15 @@
 <script lang="ts" setup>
+import { getFacets, getDocuments } from "@/composable/use-data";
 import { koi } from "@/utils/mapping-objects";
 import { type Edition, type FacetField } from "@/utils/types";
-import { getFacets, getDocuments } from "@/composable/use-data";
-import { ref } from "vue";
 import { ChevronDownIcon } from "@heroicons/vue/24/solid";
+import { ref } from "vue";
 
 const props = defineProps<{
   facet: FacetField;
   selected: string[];
 }>();
- 
+
 let facetModel = ref(props.selected);
 let loading = ref(false);
 
@@ -24,6 +24,8 @@ const loadFacets = async () => {
     : [];
   loading.value = false;
 };
+
+console.log("facet", props.facet);
 </script>
 <template>
   <div class="flex flex-col">

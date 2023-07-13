@@ -9,7 +9,7 @@ const client = new Typesense.Client({
     },
   ],
   apiKey: "Lm0v6mpJrr5gOIWdJa8tpAEylk0B7rMt", // read & retrieve only
-  connectionTimeoutSeconds: 2,
+  connectionTimeoutSeconds: 3,
 });
 
 export function useDefaultClient() {

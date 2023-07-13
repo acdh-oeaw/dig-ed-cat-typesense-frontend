@@ -3,7 +3,7 @@ import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 import { ChevronDownIcon, HomeIcon } from "@heroicons/vue/24/solid";
 </script>
 <template>
-  <header class="bg-slate-100">
+  <header class="bg-slate-100 shadow z-10">
     <div
       class="mx-auto flex w-full max-w-container flex-col items-center justify-between gap-x-4 gap-y-2 px-8 py-4 sm:flex-row"
     >
@@ -29,7 +29,7 @@ import { ChevronDownIcon, HomeIcon } from "@heroicons/vue/24/solid";
           </nuxt-link>
         </div>
         <div>
-          <Menu as="div" class="relative inline-block">
+          <Menu as="div" class="relative inline-block z-50">
             <MenuButton
               as="div"
               class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 ui-open:bg-slate-300 transition flex items-center cursor-pointer"

@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "#imports";
 import LeafletMap from "@/components/mapComponent.vue";
 
 const testCoords = [
@@ -17,12 +18,12 @@ const testCoords = [
 ];
 </script>
 <template>
-  <div class="mx-auto h-[85vh] w-screen relative">
-    <client-only>
+  <div class="mx-auto h-full w-screen relative">
+    <client-only v-if="!loading">
       <leaflet-map
         name="full-map"
-        :points="testCoords"
-        class="absolute min-w-full min-h-full -z-10"
+        :points="coords"
+        class="absolute min-w-full min-h-full"
       />
     </client-only>
   </div>
