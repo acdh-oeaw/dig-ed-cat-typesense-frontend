@@ -1,25 +1,18 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "#imports";
+import institutions from "@/assets/data/institutions_places_enriched.json";
 import LeafletMap from "@/components/mapComponent.vue";
+import { type coord } from "@/utils/types";
 
-const testCoords = [
-  {
-    lat: "48.20849",
-    long: "16.37208",
-  },
-  {
-    lat: "48.148598",
-    long: "17.107748",
-  },
-  {
-    lat: "50.073658",
-    long: "14.418540",
-  },
-];
+const coords: coord[] = institutions.map((inst) => ({
+  name: inst["Institution Name"],
+  lat: String(inst["Institution Lat"]),
+  long: String(inst["Institution Lng"]),
+}));
 </script>
 <template>
   <div class="mx-auto h-full w-screen relative">
-    <client-only v-if="!loading">
+    <client-only>
       <leaflet-map
         name="full-map"
         :points="coords"

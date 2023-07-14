@@ -4,7 +4,7 @@ import centered from "@/components/centered.vue";
 import externalLink from "@/components/external-link.vue";
 import internalLink from "@/components/internal-link.vue";
 import { getDocuments } from "@/composable/use-data";
-import { type Edition } from "@/utils/types";
+import { type Edition, type deFactoFacets } from "@/utils/types";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { ChevronUpIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
 import { log } from "console";
@@ -18,18 +18,19 @@ const route = useRoute();
 let input = String(route.query.q || "");
 let page = Number(route.query.page || 1);
 let limit = Number(route.query.limit || 25);
+let institution = String(route.query.inst || "");
 
 let results = ref<SearchResponse<Edition> | null>(null);
 let loading = ref(true);
 
-let facetValues = ref({
+let facetValues = ref<deFactoFacets>({
   "historical-period": [],
   language: [],
   "time-century": [],
   audience: [],
   "begin-date": [],
   "end-date": [],
-  "institution-s.institution-name": [],
+  "institution-s.institution-name": institution ? [institution] : [],
 });
 
 const facetObjectToQuery = (facetObject: object) => {
@@ -79,7 +80,12 @@ search();
       <div
         class="grid min-w-full gap-4 divide-y p-4 lg:grid-cols-[1fr_3fr_1fr] lg:gap-32 lg:divide-y-0 lg:px-16"
       >
-        <disclosure as="div" v-slot="{ open }" class="flex flex-col pt-10">
+        <disclosure
+          as="div"
+          v-slot="{ open }"
+          class="flex flex-col pt-10"
+          defaultOpen
+        >
           <disclosure-button
             class="flex items-center justify-end gap-2 rounded align-top text-xl transition hover:bg-slate-200 active:bg-slate-300 lg:justify-center"
           >
@@ -90,7 +96,11 @@ search();
             <facet-field
               class="pt-2"
               v-if="!loading"
-              v-for="facet in results?.facet_counts"
+              v-for="facet in results?.facet_counts?.sort(
+                (a, b) =>
+                  facetValues[b.field_name].length -
+                  facetValues[a.field_name].length
+              )"
               :facet="facet"
               :selected="facetValues[facet.field_name]"
               @facetChange="

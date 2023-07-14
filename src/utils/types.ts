@@ -92,7 +92,23 @@ export interface FacetStats {
 }
 
 export interface FacetField {
-  field_name: keyof Edition;
+  field_name: string;
   counts: Array<Facet>;
   stats: FacetStats;
+}
+
+export interface coord {
+  lat: string;
+  long: string;
+  name?: string;
+}
+
+export interface deFactoFacets {
+  "historical-period": string[];
+  language: string[];
+  "time-century": string[];
+  audience: string[];
+  "begin-date": string[];
+  "end-date": string[];
+  "institution-s.institution-name": string[];
 }
