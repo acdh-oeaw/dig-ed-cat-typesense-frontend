@@ -13,6 +13,7 @@ const props = defineProps<{
   points: coord[];
   name: string;
 }>();
+console.log("icon", L.Icon.Default.prototype._getIconUrl());
 
 onMounted(() => {
   let map = L.map(`map-${props.name}`);
@@ -25,7 +26,13 @@ onMounted(() => {
 
   const leafletPoints = props.points.map((point) => {
     const marker = L.marker([Number(point.lat), Number(point.long)], {
-      icon: L.Icon.Default.prototype,
+      icon: new L.Icon({
+        iconUrl: iconImg,
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        tooltipAnchor: [16, -28],
+      }),
     });
     if (point.name) {
       marker
