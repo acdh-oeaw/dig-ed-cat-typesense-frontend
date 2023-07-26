@@ -1,14 +1,13 @@
 <script lang="ts" setup>
-import { onMounted } from "vue";
 import { navigateTo } from "#imports";
 import { type coord } from "@/utils/types";
 import L from "leaflet";
 import "leaflet.markercluster";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
+import iconImg from "leaflet/dist/images/marker-icon.png";
 import "leaflet/dist/leaflet.css";
-
-import "leaflet-defaulticon-compatibility";
+import { onMounted } from "vue";
 
 const props = defineProps<{
   points: coord[];
@@ -25,7 +24,9 @@ onMounted(() => {
   }).addTo(map);
 
   const leafletPoints = props.points.map((point) => {
-    const marker = L.marker([Number(point.lat), Number(point.long)]);
+    const marker = L.marker([Number(point.lat), Number(point.long)], {
+      icon: L.Icon.Default.prototype,
+    });
     if (point.name) {
       marker
         .bindTooltip(
