@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   build: {
     publicPath: "/dist/",
   },
-  css: ["tailwindcss/tailwind.css", "leaflet/dist/leaflet.css"],
+  css: ["tailwindcss/tailwind.css"],
   imports: {
     autoImport: false,
   },

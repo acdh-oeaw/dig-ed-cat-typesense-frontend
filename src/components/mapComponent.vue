@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { onMounted } from "vue";
 import { navigateTo } from "#imports";
 import { type coord } from "@/utils/types";
 import L from "leaflet";
@@ -6,7 +7,8 @@ import "leaflet.markercluster";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet/dist/leaflet.css";
-import { onMounted } from "vue";
+
+import "leaflet-defaulticon-compatibility";
 
 const props = defineProps<{
   points: coord[];
@@ -41,7 +43,7 @@ onMounted(() => {
     return marker;
   });
 
-  // ignore error warning
+  // ignore error warning, this property does axist
   const cluster = L.markerClusterGroup();
 
   cluster.addLayer(L.layerGroup(leafletPoints));

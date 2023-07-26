@@ -37,6 +37,7 @@
     "@headlessui/vue": "^1.7.13",
     "@heroicons/vue": "^2.0.18",
     "leaflet": "^1.9.4",
+    "leaflet-defaulticon-compatibility": "^0.1.2",
     "leaflet.markercluster": "^1.5.3",
     "typesense": "^1.5.4"
   }
