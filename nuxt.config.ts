@@ -11,7 +11,11 @@ export default defineNuxtConfig({
   build: {
     publicPath: "/dist/",
   },
-  css: ["tailwindcss/tailwind.css"],
+  css: [
+    "tailwindcss/tailwind.css",
+    "leaflet.markercluster/dist/MarkerCluster.Default.css",
+    "leaflet.markercluster/dist/MarkerCluster.css",
+  ],
   imports: {
     autoImport: false,
   },
