@@ -6,6 +6,7 @@ import "leaflet.markercluster";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import iconImg from "leaflet/dist/images/marker-icon.png";
+import extMarker from "leaflet/dist/images/marker-icon.png";
 import "leaflet/dist/leaflet.css";
 import { onMounted } from "vue";
 
@@ -13,7 +14,7 @@ const props = defineProps<{
   points: coord[];
   name: string;
 }>();
-console.log("icon", L.Icon.Default.prototype._getIconUrl());
+console.log("icon", iconImg, extMarker);
 
 onMounted(() => {
   let map = L.map(`map-${props.name}`);
@@ -27,7 +28,7 @@ onMounted(() => {
   const leafletPoints = props.points.map((point) => {
     const marker = L.marker([Number(point.lat), Number(point.long)], {
       icon: new L.Icon({
-        iconUrl: iconImg,
+        iconUrl: extMarker,
         iconSize: [25, 41],
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
