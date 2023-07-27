@@ -64,6 +64,9 @@ search();
 </script>
 <template>
   <div>
+    <head>
+      <title>Browse Editions</title>
+    </head>
     <div class="mx-auto flex max-w-container items-center px-2">
       <input
         type="search"

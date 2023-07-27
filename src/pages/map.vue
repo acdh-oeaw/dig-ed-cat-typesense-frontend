@@ -12,6 +12,9 @@ const coords: coord[] = institutions.map((inst) => ({
 </script>
 <template>
   <div class="mx-auto h-full w-screen relative">
+    <head>
+      <title>Map of all DigEdCat Institutions</title>
+    </head>
     <client-only>
       <leaflet-map
         name="full-map"

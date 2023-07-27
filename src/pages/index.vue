@@ -1,5 +1,8 @@
 <template>
   <div class="mx-auto max-w-container">
+    <head>
+      <title>Catalogue of Digital Editions</title>
+    </head>
     <div class="flex flex-col divide-y">
       <div class="p-4">
         <img src="@/assets/images/DigEds_Cat_logo_transp.png" alt="" />

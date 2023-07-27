@@ -28,7 +28,16 @@ import { ChevronDownIcon, HomeIcon } from "@heroicons/vue/24/solid";
             Browse
           </nuxt-link>
         </div>
+
         <div>
+          <nuxt-link
+            class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition"
+            href="/map"
+          >
+            Map
+          </nuxt-link>
+        </div>
+        <!-- <div>
           <Menu as="div" class="relative inline-block z-50">
             <MenuButton
               as="div"
@@ -59,7 +68,7 @@ import { ChevronDownIcon, HomeIcon } from "@heroicons/vue/24/solid";
               </div>
             </MenuItems>
           </Menu>
-        </div>
+        </div> -->
       </div>
     </div>
   </header>
