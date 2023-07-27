@@ -18,12 +18,12 @@ loading.value = false;
 </script>
 <template>
   <div>
-    <head>
-      <title v-if="loading">Loading...</title>
-      <title v-else>
+    <Head>
+      <Title v-if="loading">Loading...</Title>
+      <Title v-else>
         {{ results["edition-name"] }}
-      </title>
-    </head>
+      </Title>
+    </Head>
     <centered class="-z-10" v-if="loading">
       <arrow-path-icon class="h-5 w-5 animate-spin" />
     </centered>
