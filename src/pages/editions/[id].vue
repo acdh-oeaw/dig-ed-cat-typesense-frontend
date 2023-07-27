@@ -20,9 +20,7 @@ loading.value = false;
   <div>
     <Head>
       <Title v-if="loading">Loading...</Title>
-      <Title v-else>
-        {{ results["edition-name"] }}
-      </Title>
+      <Title v-else> {{ results["edition-name"] }} - DigEdCat </Title>
     </Head>
     <centered class="-z-10" v-if="loading">
       <arrow-path-icon class="h-5 w-5 animate-spin" />
