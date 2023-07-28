@@ -24,19 +24,19 @@ const downloadJson = () => {
     </Head>
     <centered>
       <div class="grid grid-cols-1 gap-2">
-        <h2 class="mx-auto text-lg">Download Institutions as</h2>
+        <h2 class="mx-auto text-xl mb-2">Download Institutions as</h2>
         <button
-          class="rounded border hover:bg-slate-200 transition active:bg-slate-300 divide-x flex items-center justify-end"
+          class="rounded border hover:bg-slate-200 transition active:bg-slate-300 divide-x grid grid-cols-[1fr_auto] items-center"
           @click="downloadJson"
         >
-          <div class="p-2">Download Institutions as .json</div>
+          <div class="p-2">.json</div>
           <arrow-down-tray-icon class="p-2 box-content h-5 w-5" />
         </button>
         <button
-          class="rounded border hover:bg-slate-200 transition active:bg-slate-300 flex divide-x items-center justify-end"
+          class="rounded border hover:bg-slate-200 transition active:bg-slate-300 grid grid-cols-[1fr_auto] divide-x items-center"
           @click="downloadCsv"
         >
-          <div class="p-2">Download Institutions as .csv</div>
+          <div class="p-2">.csv</div>
           <arrow-down-tray-icon class="p-2 box-content h-5 w-5" />
         </button>
       </div>
