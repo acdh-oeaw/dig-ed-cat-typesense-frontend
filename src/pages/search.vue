@@ -55,7 +55,6 @@ const search = async () => {
     filter_by: facetObjectToQuery(facetValues.value),
     // max_facet_values: 500,
   });
-  console.log(results.value);
 
   loading.value = false;
 };

@@ -16,7 +16,7 @@ onMounted(async () => {
 <template>
   <div>
     <Head>
-      <Title> Imprint </Title>
+      <Title>Imprint</Title>
     </Head>
     <centered class="-z-10" v-if="loading">
       <arrow-path-icon class="h-5 w-5 animate-spin" />
