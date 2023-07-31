@@ -1,4 +1,11 @@
-const pseudoBool = ["0", "0.5", "1", "1.5", "2", "not provided"] as const;
+export const pseudoBool = [
+  "0",
+  "0.5",
+  "1",
+  "1.5",
+  "2",
+  "not provided",
+] as const;
 export type PseudoBool = (typeof pseudoBool)[number];
 
 export interface Edition {

@@ -29,6 +29,7 @@ const props = defineProps<{
           },
         ]"
         :name="institution['institution-name']"
+        :zoom="13"
         class="h-64 w-full"
       />
     </client-only>

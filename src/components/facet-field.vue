@@ -24,8 +24,6 @@ const loadFacets = async () => {
     : [];
   loading.value = false;
 };
-
-console.log("facet", props.facet);
 </script>
 <template>
   <div class="flex flex-col">

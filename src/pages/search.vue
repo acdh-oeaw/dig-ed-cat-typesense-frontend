@@ -4,7 +4,11 @@ import centered from "@/components/centered.vue";
 import externalLink from "@/components/external-link.vue";
 import internalLink from "@/components/internal-link.vue";
 import { getDocuments } from "@/composable/use-data";
-import { type Edition, type deFactoFacets } from "@/utils/types";
+import {
+  type Edition,
+  type deFactoFacets,
+  type Institution,
+} from "@/utils/types";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { ChevronUpIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
 import { log } from "console";
@@ -55,6 +59,8 @@ const search = async () => {
     filter_by: facetObjectToQuery(facetValues.value),
     // max_facet_values: 500,
   });
+
+  console.log(results.value);
 
   loading.value = false;
 };
@@ -156,14 +162,16 @@ search();
             </button>
           </div>
           <div
-            class="grid min-w-full grid-cols-[5fr_3fr_2fr] gap-x-8 gap-y-2"
+            class="grid min-w-full grid-cols-[5fr_3fr_auto_auto] gap-x-8 gap-y-1"
             v-if="!loading"
           >
             <div>Name</div>
+            <div>Institution(s)</div>
             <div>url</div>
             <div class="text-right">time</div>
             <template v-for="hit in results?.hits">
-              <div class="-ml-2">
+              <div class="col-span-4 border-t" />
+              <div class="-ml-2 self-center">
                 <internal-link :href="'/editions/' + hit.document.id">
                   <span
                     v-if="hit.highlight['edition-name']?.snippet"
@@ -174,10 +182,19 @@ search();
                   </span>
                 </internal-link>
               </div>
-              <div class="flex items-center">
-                <external-link :href="hit.document.url" />
+              <div class="self-center">
+                {{
+                  hit.document["institution-s"]
+                    .map(
+                      (inst: Institution): string => inst["institution-name"]
+                    )
+                    .join(", ")
+                }}
               </div>
-              <div class="flex items-center justify-end">
+              <div class="flex items-center">
+                <external-link :href="hit.document.url" icon-only />
+              </div>
+              <div class="self-center text-right">
                 {{ hit.document["time-century"] }}
               </div>
             </template>

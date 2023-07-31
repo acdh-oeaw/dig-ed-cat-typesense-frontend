@@ -5,15 +5,14 @@ import { jsonToCsv, downloadString } from "@/utils/download-utils";
 import { ArrowDownTrayIcon } from "@heroicons/vue/24/outline";
 
 const downloadCsv = () => {
-  downloadString(jsonToCsv(institutions), "institutions.csv", true);
+  downloadString(jsonToCsv(institutions), "institutions.csv", true, "csv");
 };
 const downloadJson = () => {
-  console.log(institutions);
-
   downloadString(
-    ("data:text/json;charset=utf-8," +
-      encodeURIComponent(JSON.stringify(institutions)),
-    "institutions.json")
+    JSON.stringify(institutions),
+    "institutions.json",
+    true,
+    "json"
   );
 };
 </script>
