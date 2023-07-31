@@ -31,19 +31,16 @@ loading.value = false;
           {{ results["edition-name"] }}
         </h1>
       </div>
-      <div class="grid lg:grid-cols-[2fr_1fr]">
+      <div class="grid m-2 lg:m-0 lg:grid-cols-[2fr_1fr]">
         <div class="grid grid-cols-2">
           <template v-for="[key, val] in Object.entries(koi)">
-            <span class="font-semibold p-1 border-b">
+            <span class="font-semibold">
               {{ val }}
             </span>
-            <span v-if="pseudoBool.includes(results[key])" class="p-1 border-b">
+            <span v-if="pseudoBool.includes(results[key])">
               {{ pseudoBoolTranslation[results[key] as PseudoBool] }}
             </span>
-            <span
-              v-else-if="typeof results[key] === 'object'"
-              class="p-1 border-b"
-            >
+            <span v-else-if="typeof results[key] === 'object'">
               <template v-if="typeof results[key][0] === 'string'">
                 {{ results[key].join(", ") }}
               </template>
@@ -55,12 +52,13 @@ loading.value = false;
                 }}
               </template>
             </span>
-            <span v-else-if="key === 'url'" class="border-b">
+            <span v-else-if="key === 'url'">
               <external-link :href="results[key]" />
             </span>
-            <span v-else class="p-1 border-b">
+            <span v-else>
               {{ results[key] }}
             </span>
+            <div class="col-span-2 border-b pt-1 mb-1 last:border-0" />
           </template>
         </div>
         <div class="flex flex-col">

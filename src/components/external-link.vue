@@ -3,12 +3,18 @@ import { LinkIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps<{
   href: string;
+  iconOnly?: boolean;
 }>();
 </script>
 <template>
-  <a :href="href" class="items-center flex">
+  <a
+    :href="href"
+    class="items-center flex"
+    target="_blank"
+    rel="noreferrer noopener"
+  >
     <span class="hover:underline">
-      <slot>
+      <slot v-if="!iconOnly">
         {{ href }}
       </slot>
     </span>

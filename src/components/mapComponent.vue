@@ -13,14 +13,14 @@ import { onMounted } from "vue";
 const props = defineProps<{
   points: coord[];
   name: string;
+  zoom?: number;
 }>();
-console.log("icon", iconImg, extMarker);
 
 onMounted(() => {
   let map = L.map(`map-${props.name}`);
 
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
+    minZoom: 3,
     attribution:
       '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(map);
@@ -52,13 +52,14 @@ onMounted(() => {
     return marker;
   });
 
-  // ignore error warning, this property does axist
+  // ignore error warning, this property does exist
   const cluster = L.markerClusterGroup();
 
   cluster.addLayer(L.layerGroup(leafletPoints));
   map.addLayer(cluster);
 
   map.fitBounds(cluster.getBounds());
+  if (props.zoom) map.setZoom(props.zoom);
 });
 </script>
 <template>
