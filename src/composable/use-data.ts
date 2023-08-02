@@ -33,6 +33,8 @@ export async function getDocuments<CollectionEntry extends Record<string, any>>(
   query: SearchParams | SearchParamsWithPreset,
   collection: string = "editions"
 ) {
+  console.log("search query", query);
+
   const { data, error } = await useAsyncData(collection, () =>
     useDefaultClient()
       .collections<CollectionEntry>("dig-ed-cat")
