@@ -9,11 +9,11 @@ const props = defineProps<{
 <template>
   <a
     :href="href"
-    class="items-center flex"
+    class="items-center flex group w-fit"
     target="_blank"
     rel="noreferrer noopener"
   >
-    <span class="hover:underline">
+    <span class="group-hover:underline">
       <slot v-if="!iconOnly">
         {{ href }}
       </slot>

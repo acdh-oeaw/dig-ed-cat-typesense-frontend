@@ -5,7 +5,11 @@
     </Head>
     <div class="flex flex-col divide-y">
       <div class="p-4">
-        <img src="@/assets/images/DigEds_Cat_logo_transp.png" alt="" />
+        <img
+          src="@/assets/images/DigEds_Cat_logo_transp.png"
+          class="max-w-full"
+          alt=""
+        />
       </div>
       <div class="grid divide-y p-4 lg:grid-cols-3 lg:divide-x lg:divide-y-0">
         <div class="p-4">

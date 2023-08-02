@@ -72,6 +72,8 @@ search();
     <Head>
       <Title>Browse Editions</Title>
     </Head>
+    {{ input }} <br />
+    {{ facetValues }}
     <div class="mx-auto flex max-w-container items-center px-2">
       <input
         type="search"
