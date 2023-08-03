@@ -47,8 +47,10 @@ const facetObjectToQuery = (facetObject: object) => {
 
 const search = async () => {
   loading.value = true;
+  console.log("input", input);
+
   results.value = null;
-  results = await getDocuments<Edition>({
+  results.value = await getDocuments<Edition>({
     q: input,
     query_by: "edition-name",
     per_page: 25,
