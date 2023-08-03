@@ -18,6 +18,7 @@ import {
 } from "typesense/lib/Typesense/Documents";
 
 const route = useRoute();
+let renderKey = 0;
 
 let input = String(route.query.q || "");
 let page = Number(route.query.page || 1);
@@ -60,9 +61,8 @@ const search = async () => {
     // max_facet_values: 500,
   });
 
-  console.log(results.value);
-
   loading.value = false;
+  renderKey++;
 };
 
 search();
@@ -72,8 +72,6 @@ search();
     <Head>
       <Title>Browse Editions</Title>
     </Head>
-    {{ input }} <br />
-    {{ facetValues }}
     <div class="mx-auto flex max-w-container items-center px-2">
       <input
         type="search"
@@ -115,6 +113,7 @@ search();
               :selected="facetValues[facet.field_name]"
               @facetChange="
                 facetValues[facet.field_name] = $event;
+                page = 1;
                 search();
               "
             />
@@ -123,7 +122,7 @@ search();
         <centered class="-z-10" v-if="loading">
           <arrow-path-icon class="h-5 w-5 animate-spin" />
         </centered>
-        <div v-else class="min-w-full">
+        <div v-else class="min-w-full" :key="renderKey">
           <div class="my-2 flex items-center justify-between">
             <button
               class="rounded border p-4 transition"
@@ -141,8 +140,8 @@ search();
               <span class="sr-only">Previous Page</span>
               <chevron-up-icon class="h-4 w-4 -rotate-90" />
             </button>
-            <span
-              >showing {{ (page - 1) * limit + 1 }} -
+            <span>
+              showing {{ (page - 1) * limit + 1 }} -
               {{ Math.min(results?.found || Infinity, page * limit) }} out of
               {{ results?.found }}
             </span>

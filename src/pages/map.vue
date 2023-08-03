@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "#imports";
 import institutions from "@/assets/data/institutions_places_enriched.json";
 import LeafletMap from "@/components/mapComponent.vue";
 import { type coord } from "@/utils/types";
