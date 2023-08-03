@@ -67,7 +67,6 @@ search();
     <Head>
       <Title>Browse Editions</Title>
     </Head>
-    {{ results }}
     <div class="mx-auto flex max-w-container items-center px-2">
       <input
         type="search"
@@ -80,6 +79,10 @@ search();
         placeholder="Search..."
       />
     </div>
+    <p>
+      <button @click="search()" class="border">Submit Button</button>
+    </p>
+    {{ results }}
     <div>
       <div
         class="grid min-w-full gap-4 divide-y p-4 lg:grid-cols-[1fr_3fr_1fr] lg:gap-32 lg:divide-y-0 lg:px-16"
