@@ -18,7 +18,6 @@ import {
 } from "typesense/lib/Typesense/Documents";
 
 const route = useRoute();
-let renderKey = 0;
 
 let input = String(route.query.q || "");
 let page = Number(route.query.page || 1);
@@ -62,7 +61,6 @@ const search = async () => {
   });
 
   loading.value = false;
-  renderKey++;
 };
 
 search();
@@ -122,7 +120,7 @@ search();
         <centered class="-z-10" v-if="loading">
           <arrow-path-icon class="h-5 w-5 animate-spin" />
         </centered>
-        <div v-else class="min-w-full" :key="renderKey">
+        <div v-else class="min-w-full">
           <div class="my-2 flex items-center justify-between">
             <button
               class="rounded border p-4 transition"

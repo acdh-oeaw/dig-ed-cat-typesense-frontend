@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { getFacets, getDocuments } from "@/composable/use-data";
+import Chip from "@/components/chip.vue";
+import { getFacets } from "@/composable/use-data";
 import { koi } from "@/utils/mapping-objects";
-import { type Edition, type FacetField } from "@/utils/types";
+import { type FacetField } from "@/utils/types";
 import { ChevronDownIcon } from "@heroicons/vue/24/solid";
 import { ref } from "vue";
 
@@ -36,7 +37,7 @@ const loadFacets = async () => {
     >
       <input
         type="checkbox"
-        class="h-5 w-5 cursor-pointer"
+        class="h-5 w-5 cursor-pointer ml-1"
         :id="count.value"
         :value="count.value"
         @change="$emit('facetChange', facetModel)"
@@ -46,11 +47,12 @@ const loadFacets = async () => {
       <label
         :for="count.value"
         class="flex w-full cursor-pointer items-center justify-between gap-1"
-        >{{ count.value }}
+      >
+        {{ count.value }}
         <chip>
           {{ count.count }}
-        </chip></label
-      >
+        </chip>
+      </label>
     </div>
     <div
       v-if="scopeFacet.stats.total_values != scopeFacet.counts.length"
