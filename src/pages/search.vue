@@ -49,8 +49,7 @@ const search = async () => {
   loading.value = true;
   console.log("input", input);
 
-  results.value = null;
-  results.value = await getDocuments<Edition>({
+  results = await getDocuments<Edition>({
     q: input,
     query_by: "edition-name",
     per_page: 25,
@@ -82,10 +81,6 @@ search();
         placeholder="Search..."
       />
     </div>
-    <p>
-      <button @click="search()" class="border">Submit Button</button>
-    </p>
-    {{ results }}
     <div>
       <div
         class="grid min-w-full gap-4 divide-y p-4 lg:grid-cols-[1fr_3fr_1fr] lg:gap-32 lg:divide-y-0 lg:px-16"
