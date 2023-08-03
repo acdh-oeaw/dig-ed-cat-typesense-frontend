@@ -12,10 +12,7 @@ import {
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { ChevronUpIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
 import { log } from "console";
-import {
-  type SearchResponse,
-  type SearchResponseHit,
-} from "typesense/lib/Typesense/Documents";
+import { type SearchResponse } from "typesense/lib/Typesense/Documents";
 
 const route = useRoute();
 
@@ -70,6 +67,7 @@ search();
     <Head>
       <Title>Browse Editions</Title>
     </Head>
+    {{ results }}
     <div class="mx-auto flex max-w-container items-center px-2">
       <input
         type="search"
