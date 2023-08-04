@@ -11,7 +11,6 @@ import {
 } from "@/utils/types";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { ChevronUpIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
-import { log } from "console";
 import { type SearchResponse } from "typesense/lib/Typesense/Documents";
 
 const route = useRoute();
@@ -58,7 +57,9 @@ const search = async () => {
     filter_by: facetObjectToQuery(facetValues.value),
     // max_facet_values: 500,
   });
-  results.value = response.value;
+
+  results.value = response;
+  console.log(results.value);
 
   loading.value = false;
 };

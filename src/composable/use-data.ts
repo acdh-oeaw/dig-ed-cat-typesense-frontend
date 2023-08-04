@@ -33,15 +33,15 @@ export async function getDocuments<CollectionEntry extends Record<string, any>>(
   query: SearchParams | SearchParamsWithPreset,
   collection: string = "editions"
 ) {
-  const { data, error } = await useAsyncData(collection, () =>
-    useDefaultClient()
-      .collections<CollectionEntry>("dig-ed-cat")
-      .documents()
-      .search(query)
-  );
+  // const { data, error } = await useAsyncData(collection, () =>
+  return useDefaultClient()
+    .collections<CollectionEntry>("dig-ed-cat")
+    .documents()
+    .search(query);
+  // );
 
-  if (error) console.error(error);
-  return data;
+  // if (error) console.error(error);
+  // return data;
 }
 
 export async function getFacets<CollectionEntry extends Record<string, any>>(
