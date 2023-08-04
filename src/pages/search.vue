@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useRoute, ref } from "#imports";
+import { useRoute, ref, type Ref } from "#imports";
 import centered from "@/components/centered.vue";
 import externalLink from "@/components/external-link.vue";
 import internalLink from "@/components/internal-link.vue";
@@ -21,7 +21,7 @@ let page = Number(route.query.page || 1);
 let limit = Number(route.query.limit || 25);
 let institution = String(route.query.inst || "");
 
-let results = ref<SearchResponse<Edition> | null>(null);
+const results: Ref<SearchResponse<Edition> | null> = ref(null);
 let loading = ref(true);
 
 let facetValues = ref<deFactoFacets>({
@@ -49,17 +49,16 @@ const search = async () => {
   loading.value = true;
   console.log("input", input);
 
-  results = ref(
-    await getDocuments<Edition>({
-      q: input,
-      query_by: "edition-name",
-      per_page: 25,
-      page,
-      facet_by: Object.keys(facetValues.value).join(","),
-      filter_by: facetObjectToQuery(facetValues.value),
-      // max_facet_values: 500,
-    })
-  );
+  const response = await getDocuments<Edition>({
+    q: input,
+    query_by: "edition-name",
+    per_page: 25,
+    page,
+    facet_by: Object.keys(facetValues.value).join(","),
+    filter_by: facetObjectToQuery(facetValues.value),
+    // max_facet_values: 500,
+  });
+  results.value = response.value;
 
   loading.value = false;
 };
