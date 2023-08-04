@@ -49,15 +49,17 @@ const search = async () => {
   loading.value = true;
   console.log("input", input);
 
-  results = await getDocuments<Edition>({
-    q: input,
-    query_by: "edition-name",
-    per_page: 25,
-    page,
-    facet_by: Object.keys(facetValues.value).join(","),
-    filter_by: facetObjectToQuery(facetValues.value),
-    // max_facet_values: 500,
-  });
+  results = ref(
+    await getDocuments<Edition>({
+      q: input,
+      query_by: "edition-name",
+      per_page: 25,
+      page,
+      facet_by: Object.keys(facetValues.value).join(","),
+      filter_by: facetObjectToQuery(facetValues.value),
+      // max_facet_values: 500,
+    })
+  );
 
   loading.value = false;
 };
