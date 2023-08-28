@@ -5,7 +5,7 @@ export async function getImprint() {
     "https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php",
     {
       params: {
-        serviceID: 9945, // stolen as of now, will be replaced by official redmine ID
+        serviceID: 21958,
         outputLang: "en",
       },
     }
