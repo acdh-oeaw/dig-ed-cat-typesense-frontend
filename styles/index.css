@@ -1,0 +1,8 @@
+:root {
+	--font-sans: "Open Sans Variable";
+	--color-background: var(--color-neutral-50);
+}
+
+#__nuxt {
+	block-size: 100%;
+}
