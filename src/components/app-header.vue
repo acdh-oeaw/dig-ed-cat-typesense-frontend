@@ -13,10 +13,12 @@ import { HomeIcon, ArrowDownTrayIcon } from "@heroicons/vue/24/solid";
         <div>
           <nuxt-link
             href="/"
-            class="hover:bg-slate-200 active:bg-slate-300 transition rounded p-4 block"
+            class="hover:bg-slate-200 active:bg-slate-300 transition rounded p-4 block group"
           >
             <span class="sr-only">Home</span>
-            <home-icon class="w-6 h-6" />
+            <home-icon
+              class="w-6 h-6 group-hover:scale-110 group-active:scale-90 transition"
+            />
           </nuxt-link>
         </div>
         <div>
@@ -45,11 +47,13 @@ import { HomeIcon, ArrowDownTrayIcon } from "@heroicons/vue/24/solid";
         </div>
         <div>
           <nuxt-link
-            class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition block"
+            class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition block group"
             href="/download"
           >
             <span class="sr-only">Download Files</span>
-            <arrow-down-tray-icon class="w-6 h-6" />
+            <arrow-down-tray-icon
+              class="w-6 h-6 group-hover:scale-110 group-active:scale-90 transition"
+            />
           </nuxt-link>
         </div>
       </div>
