@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useRoute, ref, type Ref } from "#imports";
+import { useRoute, ref, type Ref, watch, computed } from "#imports";
 import centered from "@/components/centered.vue";
 import externalLink from "@/components/external-link.vue";
 import internalLink from "@/components/internal-link.vue";
@@ -16,9 +16,6 @@ import { type SearchResponse } from "typesense/lib/Typesense/Documents";
 const route = useRoute();
 
 let input = String(route.query.q || "");
-let page = Number(route.query.page || 1);
-let limit = Number(route.query.limit || 25);
-let institution = String(route.query.inst || "");
 
 const results: Ref<SearchResponse<Edition> | null> = ref(null);
 let loading = ref(true);
@@ -30,41 +27,88 @@ let facetValues = ref<deFactoFacets>({
   audience: [],
   "begin-date": [],
   "end-date": [],
-  "institution-s.institution-name": institution ? [institution] : [],
+  "institution-s.institution-name": [],
 });
 
-const facetObjectToQuery = (facetObject: object) => {
+const facetObjectToTypesenseQuery = (
+  facetObject: object,
+  encode: boolean = false
+) => {
   const retArray: string[] = [];
   Object.entries(facetObject).forEach(([key, value]) => {
     if (value && value.length != 0) {
-      retArray.push(value.map((x: string) => `${key}:="${x}"`).join("&&"));
+      retArray.push(key + ":=[`" + value.join("`,`") + "`]");
     }
   });
-  const query = retArray.join(" && ");
-  return query;
+  const query = retArray.join("&&");
+
+  return encode ? encodeURIComponent(query).replace("=", "") : query;
 };
 
-const search = async () => {
+const typesenseQueryToFacetObject = (
+  typeQuery: string,
+  decode: boolean = false
+) => {
+  const query = decode ? decodeURIComponent(typeQuery) : typeQuery;
+  const facetArray = query.split("&&");
+  const retObject = { ...facetValues.value };
+  facetArray.forEach((facetString) => {
+    const facetSplit = facetString.split(":=");
+    retObject[facetSplit[0]] = JSON.parse(
+      String(facetSplit[1])?.replaceAll("`", '"')
+    );
+  });
+  return retObject;
+};
+
+if (route.query.facets) {
+  facetValues.value = typesenseQueryToFacetObject(
+    String(route.query.facets),
+    true
+  );
+}
+
+const search = async (
+  terms: string = "",
+  page: number = 1,
+  limit: number = 25,
+  facets: string = ""
+) => {
   loading.value = true;
-  console.log("input", input);
 
   const response = await getDocuments<Edition>({
-    q: input,
+    q: terms,
     query_by: "edition-name",
-    per_page: 25,
+    per_page: limit,
     page,
     facet_by: Object.keys(facetValues.value).join(","),
-    filter_by: facetObjectToQuery(facetValues.value),
+    filter_by: facets,
     // max_facet_values: 500,
   });
 
   results.value = response;
-  console.log(results.value);
-
   loading.value = false;
 };
 
-search();
+const pageNum = computed(() => Number(route.query.page) || 1);
+const limitNum = computed(() => Number(route.query.limit) || 25);
+
+watch(
+  route,
+  (newRoute) => {
+    const { query } = newRoute;
+
+    search(
+      String(query.q || ""),
+      pageNum.value || 1,
+      limitNum.value || 25,
+      decodeURIComponent(String(query.facets || ""))
+    );
+  },
+  {
+    immediate: true,
+  }
+);
 </script>
 <template>
   <div>
@@ -76,8 +120,13 @@ search();
         type="search"
         v-model="input"
         @input="
-          page = 1;
-          search();
+          $router.replace({
+            query: {
+              ...route.query,
+              q: input,
+              page: 1,
+            },
+          })
         "
         class="mx-auto my-4 h-16 min-w-full rounded border p-4 shadow"
         placeholder="Search..."
@@ -108,12 +157,18 @@ search();
                   facetValues[b.field_name].length -
                   facetValues[a.field_name].length
               )"
-              :facet="facet"
+              :field-name="facet.field_name"
+              :facets="facet.counts"
               :selected="facetValues[facet.field_name]"
               @facetChange="
                 facetValues[facet.field_name] = $event;
-                page = 1;
-                search();
+                $router.push({
+                  query: {
+                    ...route.query,
+                    facets: facetObjectToTypesenseQuery(facetValues, true),
+                    page: 1,
+                  },
+                });
               "
             />
           </disclosure-panel>
@@ -126,35 +181,44 @@ search();
             <button
               class="rounded border p-4 transition"
               :class="
-                page <= 1
+                pageNum <= 1
                   ? 'cursor-not-allowed text-gray-400'
                   : 'cursor-pointer hover:bg-slate-200 active:bg-slate-300'
               "
-              :disabled="page <= 1"
+              :disabled="pageNum <= 1"
               @click="
-                page--;
-                search();
+                $router.push({
+                  query: {
+                    ...route.query,
+                    page: pageNum - 1,
+                  },
+                })
               "
             >
               <span class="sr-only">Previous Page</span>
               <chevron-up-icon class="h-4 w-4 -rotate-90" />
             </button>
             <span>
-              showing {{ (page - 1) * limit + 1 }} -
-              {{ Math.min(results?.found || Infinity, page * limit) }} out of
+              showing {{ (pageNum - 1) * limitNum + 1 }} -
+              {{ Math.min(results?.found || Infinity, pageNum * limitNum) }} out
+              of
               {{ results?.found }}
             </span>
             <button
               class="rounded border p-4 transition"
               :class="
-                page * limit >= Number(results?.found)
+                pageNum * limitNum >= Number(results?.found)
                   ? 'cursor-not-allowed text-gray-400'
                   : 'cursor-pointer hover:bg-slate-200 active:bg-slate-300'
               "
-              :disabled="page * limit >= Number(results?.found)"
+              :disabled="pageNum * limitNum >= Number(results?.found)"
               @click="
-                page++;
-                search();
+                $router.push({
+                  query: {
+                    ...route.query,
+                    page: pageNum + 1,
+                  },
+                })
               "
             >
               <span class="sr-only">Next Page</span>

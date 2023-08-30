@@ -46,21 +46,18 @@ export async function getDocuments<CollectionEntry extends Record<string, any>>(
 
 export async function getFacets<CollectionEntry extends Record<string, any>>(
   facets: string,
-  max: number = 500
+  max: number = 500,
+  facetQuery: string = ""
 ) {
-  const { data, error } = await useAsyncData("facets", () =>
-    useDefaultClient()
-      .collections<CollectionEntry>("dig-ed-cat")
-      .documents()
-      .search({
-        q: "*",
-        query_by: "edition-name",
-        per_page: 0,
-        facet_by: facets,
-        max_facet_values: max,
-      })
-  );
-
-  if (error) console.error(error);
-  return data;
+  return useDefaultClient()
+    .collections<CollectionEntry>("dig-ed-cat")
+    .documents()
+    .search({
+      q: "*",
+      query_by: "edition-name",
+      per_page: 0,
+      facet_by: facets,
+      facet_query: `${facets}:${facetQuery}`,
+      max_facet_values: max,
+    });
 }

@@ -1,39 +1,63 @@
 <script lang="ts" setup>
 import Chip from "@/components/chip.vue";
 import { getFacets } from "@/composable/use-data";
+import { removeDuplicates } from "@/utils/helpers";
 import { koi } from "@/utils/mapping-objects";
-import { type FacetField } from "@/utils/types";
+import { type FacetField, type Facet } from "@/utils/types";
 import { ChevronDownIcon } from "@heroicons/vue/24/solid";
-import { ref } from "vue";
+import { ref, onMounted, computed } from "vue";
 
 const props = defineProps<{
-  facet: FacetField;
-  selected: string[];
+  fieldName: string;
+  facets: Facet[];
+  selected?: string[];
 }>();
 
 let facetModel = ref(props.selected);
-let loading = ref(false);
+let loading = ref(true);
 
-let scopeFacet = ref(props.facet);
+let scopeFacet = ref<FacetField>({
+  field_name: props.fieldName,
+  counts: [],
+  stats: {},
+});
 
-const loadFacets = async () => {
+const loadFacets = async (max: number = 500, facetQuery: string = "") => {
   loading.value = true;
-  const results = await getFacets(scopeFacet.value.field_name);
+  const results = await getFacets(props.fieldName, max);
 
-  scopeFacet.value = results.value?.facet_counts?.length
-    ? results.value?.facet_counts[0]
+  scopeFacet.value = results.facet_counts?.length
+    ? results.facet_counts[0]
     : [];
+
   loading.value = false;
 };
+
+onMounted(async () => {
+  await loadFacets(10);
+});
+
+// add selected facet to model
+const facetsWithSelected = computed(() => {
+  let retArray = removeDuplicates(
+    [...scopeFacet.value.counts, ...props.facets],
+    "value"
+  ) as Facet[];
+  retArray = retArray.sort((a: Facet) => {
+    if (props.selected && props.selected.includes(a.value)) return -1;
+    else return 1;
+  });
+  return retArray;
+});
 </script>
 <template>
   <div class="flex flex-col">
     <h1 class="flex items-center justify-between text-2xl">
-      {{ koi[scopeFacet.field_name] }}
+      {{ koi[fieldName] }}
     </h1>
     <div
       class="flex items-center gap-2 rounded p-1 transition hover:bg-slate-200 active:bg-slate-300"
-      v-for="count in scopeFacet.counts"
+      v-for="count in facetsWithSelected"
     >
       <input
         type="checkbox"
@@ -49,15 +73,15 @@ const loadFacets = async () => {
         class="flex w-full cursor-pointer items-center justify-between gap-1"
       >
         {{ count.value }}
-        <chip>
+        <chip v-if="count.count">
           {{ count.count }}
         </chip>
       </label>
     </div>
     <div
-      v-if="scopeFacet.stats.total_values != scopeFacet.counts.length"
+      v-if="scopeFacet.stats?.total_values != scopeFacet.counts.length"
       class="flex cursor-pointer items-center justify-center gap-2 rounded p-1 transition hover:bg-slate-200 active:bg-slate-300"
-      @click="loadFacets"
+      @click="loadFacets()"
     >
       <span> show all... ({{ scopeFacet.stats.total_values }} total)</span>
       <chevron-down-icon class="h-5 w-5" />

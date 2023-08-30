@@ -44,7 +44,9 @@ onMounted(() => {
           navigateTo({
             path: "/search",
             query: {
-              inst: point.name,
+              facets: encodeURIComponent(
+                `institution-s.institution-name:=[\`${point.name}\`]`
+              ),
             },
           });
         });
