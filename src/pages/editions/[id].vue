@@ -66,8 +66,7 @@ loading.value = false;
             Institution{{ results["institution-s"].length === 1 ? "" : "s" }}:
           </h1>
           <institution-card
-            v-for="inst in results['institution-s']"
-            :institution="inst"
+            :institutions="results['institution-s']"
             class="m-5 mb-0"
           />
         </div>
