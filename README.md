@@ -52,3 +52,7 @@ npm run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Typesense configuration schema
+
+The Typesense index used by this application is configured [here](https://github.com/csae8092/dig-ed-cat-indexer).
