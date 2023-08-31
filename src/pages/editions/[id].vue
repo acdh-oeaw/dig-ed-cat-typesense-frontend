@@ -61,13 +61,18 @@ loading.value = false;
             <div class="col-span-2 border-b pt-1 mb-1 last:border-0" />
           </template>
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col" v-if="results['institution-s'].length">
           <h1 class="m-5 mb-0 text-2xl text-center">
             Institution{{ results["institution-s"].length === 1 ? "" : "s" }}:
           </h1>
           <institution-card
-            v-for="inst in results['institution-s']"
-            :institution="inst"
+            v-if="results['institution-s'].length != 1"
+            :institutions="results['institution-s']"
+            class="m-5 mb-0"
+          />
+          <institution-card
+            v-else
+            :institution="results['institution-s'][0]"
             class="m-5 mb-0"
           />
         </div>
