@@ -262,6 +262,15 @@ watch(
                 {{ hit.document["time-century"] }}
               </div>
             </template>
+            <div
+              v-if="
+                Math.min(results?.found || Infinity, pageNum * limitNum) ===
+                results?.found
+              "
+              class="col-span-4 border-t italic text-gray-300 text-center"
+            >
+              You've reached the end.
+            </div>
           </div>
         </div>
       </div>

@@ -21,8 +21,17 @@ const props = defineProps<{
         <external-link :href="institution['institution-gnd']" />
       </h3>
     </div>
-    <div class="p-5" v-else-if="institutions">
-      <h1 class="text-2xl">{{ institutions.map((inst: Institution) => inst['institution-name']).join(', ')}}</h1>
+    <div class="p-3 flex-col flex gap-1 divide-y" v-else-if="institutions">
+      <div v-for="inst in institutions">
+        <div class="col-span-2 text-lg">
+          <external-link :href="inst['institution-website']">
+            {{ inst["institution-name"] }}
+          </external-link>
+        </div>
+        <div class="text-sm">
+          {{ inst["located-at"] }}, {{ inst["part-of"] }}
+        </div>
+      </div>
     </div>
     <client-only>
       <leaflet-map
