@@ -1,15 +1,7 @@
 import { useFetch } from "#imports";
 
 export async function getImprint() {
-  const { data, error } = await useFetch(
-    "https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php",
-    {
-      params: {
-        serviceID: 21958,
-        outputLang: "en",
-      },
-    }
-  );
+  const { data, error } = await useFetch("https://imprint.acdh.oeaw.ac.at/21958", { params: { locale: "en" }});
 
   if (error) console.error(error);
   return data;
