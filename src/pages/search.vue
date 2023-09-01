@@ -61,6 +61,17 @@ const typesenseQueryToFacetObject = (typeQuery: string, decode: boolean = false)
 	return retObject;
 };
 
+const getSortString = (col: string) => {
+	switch (route.query.sort_by) {
+		case `${col}:asc`:
+			return `${col}:desc`;
+		case `${col}:desc`:
+			return "";
+		default:
+			return `${col}:asc`;
+	}
+};
+
 if (route.query.facets) {
 	facetValues.value = typesenseQueryToFacetObject(String(route.query.facets), true);
 }
@@ -70,6 +81,7 @@ const search = async (
 	page: number = 1,
 	limit: number = 25,
 	facets: string = "",
+	sortBy: string = "",
 ) => {
 	loading.value = true;
 
@@ -80,6 +92,7 @@ const search = async (
 		page,
 		facet_by: Object.keys(facetValues.value).join(","),
 		filter_by: facets,
+		sort_by: sortBy,
 		// max_facet_values: 500,
 	});
 
@@ -100,6 +113,7 @@ watch(
 			pageNum.value || 1,
 			limitNum.value || 25,
 			decodeURIComponent(String(query.facets || "")),
+			String(query.sort_by || ""),
 		);
 	},
 	{
@@ -219,10 +233,31 @@ watch(
 						class="grid min-w-full grid-cols-[5fr_3fr_auto_auto] gap-x-8 gap-y-1"
 						v-if="!loading && results?.found"
 					>
-						<div>Name</div>
+						<div>
+							<nuxt-link
+								class="flex items-center gap-2 hover:bg-slate-200 p-1 -m-1 rounded transition active:bg-slate-300"
+								:to="{
+									query: {
+										...route.query,
+										page: 1,
+										sort_by: getSortString('edition-name'),
+									},
+								}"
+							>
+								Name
+								<ChevronUpIcon
+									:class="{
+										'opacity-20': !route.query.sort_by?.includes('edition-name'),
+										'rotate-180': !route.query.sort_by?.includes('desc'),
+									}"
+									class="w-5 h-5"
+								/>
+								<span class="sr-only">Click to sort by Name</span>
+							</nuxt-link>
+						</div>
 						<div>Institution(s)</div>
 						<div>url</div>
-						<div class="text-right">time</div>
+						<div class="text-right">Time</div>
 						<template v-for="hit in results?.hits">
 							<div class="col-span-4 border-t" />
 							<div class="-ml-2 self-center">
