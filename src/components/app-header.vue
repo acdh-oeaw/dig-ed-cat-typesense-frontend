@@ -11,7 +11,7 @@ import { HomeIcon, ArrowDownTrayIcon } from "@heroicons/vue/24/solid";
 				<div>
 					<nuxt-link
 						href="/"
-						class="hover:bg-black active:bg-slate-300 transition rounded p-4 block group"
+						class="hover:bg-slate-200 active:bg-slate-300 transition rounded p-4 block group"
 					>
 						<span class="sr-only">Home</span>
 						<home-icon class="w-6 h-6 group-hover:scale-110 group-active:scale-90 transition" />
