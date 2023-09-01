@@ -12,7 +12,7 @@ import type {
 	FacetField,
 } from "@/utils/types";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
-import { ChevronUpIcon, ArrowPathIcon } from "@heroicons/vue/24/solid";
+import { ChevronUpIcon, ArrowPathIcon, ChevronUpDownIcon } from "@heroicons/vue/24/solid";
 import type { SearchResponse } from "typesense/lib/Typesense/Documents";
 import type { RouteLocationNormalized, LocationQuery } from "vue-router";
 
@@ -246,12 +246,13 @@ watch(
 							>
 								Name
 								<ChevronUpIcon
+									v-if="route.query.sort_by && route.query.sort_by.includes('edition-name')"
 									:class="{
-										'opacity-20': !route.query.sort_by?.includes('edition-name'),
 										'rotate-180': !route.query.sort_by?.includes('desc'),
 									}"
 									class="w-5 h-5"
 								/>
+								<ChevronUpDownIcon v-else class="w-5 h-5 opacity-50" />
 								<span class="sr-only">Click to sort by Name</span>
 							</nuxt-link>
 						</div>
