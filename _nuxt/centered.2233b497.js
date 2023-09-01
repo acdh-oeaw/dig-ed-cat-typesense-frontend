@@ -1,0 +1,1 @@
+import{_ as s,o as t,c,H as o}from"./entry.c23ffdb6.js";const r={},n={class:"absolute inset-0 grid h-full w-full place-items-center"};function l(e,a){return t(),c("div",n,[o(e.$slots,"default")])}const d=s(r,[["render",l]]);export{d as c};
