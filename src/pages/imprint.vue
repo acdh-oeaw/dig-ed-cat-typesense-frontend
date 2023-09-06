@@ -9,18 +9,18 @@ const imprint = ref("");
 
 getImprint();
 onMounted(async () => {
-  imprint.value = String((await getImprint()).value);
-  loading.value = false;
+	imprint.value = String((await getImprint()).value);
+	loading.value = false;
 });
 </script>
 <template>
-  <div>
-    <Head>
-      <Title>Imprint</Title>
-    </Head>
-    <centered class="-z-10" v-if="loading">
-      <arrow-path-icon class="h-5 w-5 animate-spin" />
-    </centered>
-    <div v-else v-html="imprint" />
-  </div>
+	<div>
+		<Head>
+			<Title>Imprint</Title>
+		</Head>
+		<centered class="-z-10" v-if="loading">
+			<ArrowPathIcon class="h-5 w-5 animate-spin" />
+		</centered>
+		<div v-else v-html="imprint" />
+	</div>
 </template>
