@@ -24,6 +24,9 @@
 				</div>
 			</div>
 			<hr />
+			<div class="my-2 font-bold">
+				<nuxt-link href="/imprint">Imprint</nuxt-link>
+			</div>
 			<div class="my-2 font-bold">Contact</div>
 			<div class="my-2">
 				Greta Franzini

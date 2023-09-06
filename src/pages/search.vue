@@ -145,7 +145,7 @@ watch(
 		</div>
 		<div>
 			<div
-				class="grid min-w-full gap-4 divide-y p-4 lg:grid-cols-[1fr_3fr_1fr] lg:gap-32 lg:divide-y-0 lg:px-16"
+				class="grid min-w-full gap-4 divide-y p-4 md:grid-cols-[1fr_4fr] 2xl:grid-cols-[1fr_3fr_1fr] 2xl:gap-32 2xl:divide-y-0 2xl:px-16"
 			>
 				<disclosure as="div" v-slot="{ open }" class="flex flex-col pt-10" defaultOpen>
 					<disclosure-button
