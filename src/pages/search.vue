@@ -237,7 +237,7 @@ watch(
 						</button>
 					</div>
 					<div
-						class="grid min-w-full grid-cols-[5fr_3fr_auto] md:grid-cols-[5fr_3fr_auto_auto] gap-x-8 gap-y-1"
+						class="grid min-w-full grid-cols-[5fr_3fr_auto_auto] gap-x-8 gap-y-1"
 						v-if="!loading && results?.found"
 					>
 						<div>

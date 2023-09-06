@@ -17,7 +17,7 @@ const props = defineProps<{
 		</span>
 		&nbsp;
 		<span class="text-right">
-			<ChevronDownIcon class="h-5 w-5 inline-block" />
+			<ChevronRightIcon class="h-5 w-5 inline-block" />
 		</span>
 	</nuxt-link>
 </template>
