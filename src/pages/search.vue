@@ -237,7 +237,7 @@ watch(
 						</button>
 					</div>
 					<div
-						class="grid min-w-full grid-cols-[5fr_3fr_auto_auto] gap-x-8 gap-y-1"
+						class="grid min-w-full grid-cols-[5fr_3fr_auto] md:grid-cols-[5fr_3fr_auto_auto] gap-x-8 gap-y-1"
 						v-if="!loading && results?.found"
 					>
 						<div>
@@ -264,8 +264,8 @@ watch(
 							</nuxt-link>
 						</div>
 						<div>Institution(s)</div>
-						<div>url</div>
-						<div class="text-right">Time</div>
+						<div class="hidden md:block">url</div>
+						<div class="text-right hidden md:block">Time</div>
 						<template v-for="hit in results?.hits">
 							<div class="col-span-4 border-t" />
 							<div class="-ml-2 self-center">
@@ -286,10 +286,10 @@ watch(
 										.join(", ")
 								}}
 							</div>
-							<div class="flex items-center">
+							<div class="hidden items-center md:flex">
 								<external-link :href="hit.document.url" icon-only />
 							</div>
-							<div class="self-center text-right">
+							<div class="self-center text-right hidden md:block">
 								{{ hit.document["time-century"] }}
 							</div>
 						</template>
