@@ -2,22 +2,22 @@
 import { ChevronRightIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps<{
-  href: string;
+	href: string;
 }>();
 </script>
 <template>
-  <nuxt-link
-    :href="href"
-    class="items-center grid grid-cols-[auto_auto_1fr] hover:bg-slate-200 active:bg-slate-300 p-2 rounded transition"
-  >
-    <span
-      ><slot>
-        {{ href }}
-      </slot>
-    </span>
-    &nbsp;
-    <span class="text-right">
-      <chevron-right-icon class="h-5 w-5 inline-block" />
-    </span>
-  </nuxt-link>
+	<nuxt-link
+		:href="href"
+		class="items-center grid grid-cols-[auto_auto_1fr] hover:bg-slate-200 active:bg-slate-300 p-2 rounded transition"
+	>
+		<span>
+			<slot>
+				{{ href }}
+			</slot>
+		</span>
+		&nbsp;
+		<span class="text-right">
+			<ChevronDownIcon class="h-5 w-5 inline-block" />
+		</span>
+	</nuxt-link>
 </template>

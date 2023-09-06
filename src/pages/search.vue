@@ -76,7 +76,7 @@ if (route.query.facets) {
 	facetValues.value = typesenseQueryToFacetObject(String(route.query.facets), true);
 }
 
-const search = async (
+const search: Function = async (
 	terms: string = "",
 	page: number = 1,
 	limit: number = 25,
@@ -102,6 +102,8 @@ const search = async (
 
 const pageNum: ComputedRef<number> = computed(() => Number(route.query.page) || 1);
 const limitNum: ComputedRef<number> = computed(() => Number(route.query.limit) || 25);
+
+const windowWidth: ComputedRef<number> = computed(() => window.innerWidth);
 
 watch(
 	route,
@@ -147,7 +149,12 @@ watch(
 			<div
 				class="grid min-w-full gap-4 divide-y p-4 md:grid-cols-[1fr_4fr] 2xl:grid-cols-[1fr_3fr_1fr] 2xl:gap-32 2xl:divide-y-0 2xl:px-16"
 			>
-				<disclosure as="div" v-slot="{ open }" class="flex flex-col pt-10" defaultOpen>
+				<disclosure
+					as="div"
+					v-slot="{ open }"
+					class="flex flex-col pt-10"
+					:default-open="windowWidth > 768"
+				>
 					<disclosure-button
 						class="flex items-center justify-end gap-2 rounded align-top text-xl transition hover:bg-slate-200 active:bg-slate-300 lg:justify-center"
 					>
@@ -178,7 +185,7 @@ watch(
 					</disclosure-panel>
 				</disclosure>
 				<centered class="-z-10" v-if="loading || !results?.found">
-					<arrow-path-icon v-if="loading" class="h-5 w-5 animate-spin" />
+					<ArrowPathIcon v-if="loading" class="h-5 w-5 animate-spin" />
 					<span class="text-gray-400 italic" v-else>Nothing found.</span>
 				</centered>
 				<div v-else class="min-w-full">
@@ -201,7 +208,7 @@ watch(
 							"
 						>
 							<span class="sr-only">Previous Page</span>
-							<chevron-up-icon class="h-4 w-4 -rotate-90" />
+							<ChevronUpIcon class="h-4 w-4 -rotate-90" />
 						</button>
 						<span>
 							showing {{ (pageNum - 1) * limitNum + 1 }} -
@@ -226,7 +233,7 @@ watch(
 							"
 						>
 							<span class="sr-only">Next Page</span>
-							<chevron-up-icon class="h-4 w-4 rotate-90" />
+							<ChevronUpIcon class="h-4 w-4 rotate-90" />
 						</button>
 					</div>
 					<div

@@ -10,7 +10,7 @@ const coords: coord[] = institutions.map((inst) => ({
 }));
 </script>
 <template>
-	<div class="mx-auto h-full w-screen relative">
+	<div class="mx-auto min-h-full min-w-full relative">
 		<Head>
 			<Title>Map of all DigEdCat Institutions</Title>
 		</Head>

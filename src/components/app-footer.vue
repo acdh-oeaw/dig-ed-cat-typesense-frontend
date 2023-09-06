@@ -34,7 +34,7 @@
 				g.franzini.11@ucl.ac.uk
 			</div>
 			<div class="my-2 font-bold">Find more on the web</div>
-			<div class="flex my-2">
+			<div class="flex flex-wrap my-2">
 				<a
 					href="https://github.com/acdh-oeaw/dig-ed-cat-typesense-frontend"
 					class="flex w-20 h-20 rounded-full bg-slate-600 m-1 items-center justify-around p-4"

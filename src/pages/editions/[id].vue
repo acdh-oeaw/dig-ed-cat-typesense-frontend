@@ -31,7 +31,7 @@ loading.value = false;
 			<Title v-else>{{ results["edition-name"] }} - DigEdCat</Title>
 		</Head>
 		<centered class="-z-10" v-if="loading">
-			<arrow-path-icon class="h-5 w-5 animate-spin" />
+			<ArrowPathIcon class="h-5 w-5 animate-spin" />
 		</centered>
 		<div v-else class="flex flex-col max-w-container mx-auto">
 			<div>

@@ -83,7 +83,7 @@ const facetsWithSelected: ComputedRef<Facet[]> = computed(() => {
 			@click="loadFacets()"
 		>
 			<span>show all... ({{ scopeFacet.stats.total_values }} total)</span>
-			<chevron-down-icon class="h-5 w-5" />
+			<ChevronDownIcon class="h-5 w-5" />
 		</div>
 	</div>
 </template>

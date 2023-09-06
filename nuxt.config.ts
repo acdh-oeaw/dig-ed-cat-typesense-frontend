@@ -1,12 +1,6 @@
 import { fileURLToPath } from "node:url";
 
 export default defineNuxtConfig({
-	head: {
-		meta: {
-			name: "viewport",
-			content: "width=1000",
-		},
-	},
 	alias: {
 		"@": fileURLToPath(new URL("./src", import.meta.url)),
 		"~": fileURLToPath(new URL("./", import.meta.url)),
