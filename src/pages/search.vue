@@ -237,7 +237,7 @@ watch(
 						</button>
 					</div>
 					<div
-						class="grid min-w-full grid-cols-[5fr_3fr_auto_auto] gap-x-8 gap-y-1"
+						class="grid min-w-full grid-cols-2 md:grid-cols-[5fr_3fr_auto_auto] gap-x-8 gap-y-1"
 						v-if="!loading && results?.found"
 					>
 						<div>
@@ -267,7 +267,7 @@ watch(
 						<div class="hidden md:block">url</div>
 						<div class="text-right hidden md:block">Time</div>
 						<template v-for="hit in results?.hits">
-							<div class="col-span-4 border-t" />
+							<div class="col-span-2 md:col-span-4 border-t" />
 							<div class="-ml-2 self-center">
 								<internal-link :href="'/editions/' + hit.document.id">
 									<span
