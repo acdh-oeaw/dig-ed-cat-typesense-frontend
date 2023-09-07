@@ -128,177 +128,176 @@ watch(
 		<Head>
 			<Title>Browse Editions</Title>
 		</Head>
-		<centered class="-z-10" v-if="loading || !results?.found">
-			<ArrowPathIcon v-if="loading" class="h-5 w-5 animate-spin" />
-			<span class="text-gray-400 italic" v-else>Nothing found.</span>
-		</centered>
-		<div v-else>
-			<div class="mx-auto flex max-w-container items-center px-2">
-				<input
-					type="search"
-					v-model="input"
-					@input="
-						$router.replace({
-							query: {
-								...route.query,
-								q: input,
-								page: 1,
-							},
-						})
-					"
-					class="mx-auto my-4 h-16 min-w-full rounded border p-4 shadow"
-					placeholder="Search..."
-				/>
-			</div>
-			<div
-				class="grid min-w-full gap-4 divide-y p-4 md:grid-cols-[1fr_4fr] 2xl:grid-cols-[1fr_3fr_1fr] 2xl:gap-32 2xl:divide-y-0 2xl:px-16"
+		<div class="mx-auto flex max-w-container items-center p-2 md:p-0">
+			<input
+				type="search"
+				v-model="input"
+				@input="
+					$router.replace({
+						query: {
+							...route.query,
+							q: input,
+							page: 1,
+						},
+					})
+				"
+				class="mx-auto my-4 h-16 min-w-full rounded border p-4 shadow-md"
+				placeholder="Search..."
+			/>
+		</div>
+		<div
+			class="grid min-w-full h-full gap-4 divide-y md:divide-y-0 p-4 grid-rows-[auto_1fr] md:grid-rows-1 md:grid-cols-[1fr_4fr] 2xl:grid-cols-[1fr_3fr_1fr] 2xl:gap-32 2xl:divide-y-0 2xl:px-16"
+		>
+			<disclosure
+				as="div"
+				v-slot="{ open }"
+				class="flex flex-col pt-10"
+				:default-open="windowWidth > 768"
 			>
-				<disclosure
-					as="div"
-					v-slot="{ open }"
-					class="flex flex-col pt-10"
-					:default-open="windowWidth > 768"
+				<disclosure-button
+					class="flex items-center justify-end gap-2 rounded align-top text-xl transition hover:bg-slate-200 active:bg-slate-300 lg:justify-center"
 				>
-					<disclosure-button
-						class="flex items-center justify-end gap-2 rounded align-top text-xl transition hover:bg-slate-200 active:bg-slate-300 lg:justify-center"
-					>
-						{{ open ? "Hide" : "Show" }} Filters...
-						<ChevronUpIcon class="h-5 w-5 rotate-180 ui-open:rotate-0" />
-					</disclosure-button>
-					<disclosure-panel as="div" class="flex flex-col gap-2 divide-y">
-						<facet-field
-							class="pt-2"
-							v-if="!loading"
-							v-for="facet in (results?.facet_counts as FacetField[]).sort(
+					{{ open ? "Hide" : "Show" }} Filters...
+					<ChevronUpIcon class="h-5 w-5 rotate-180 ui-open:rotate-0" />
+				</disclosure-button>
+				<disclosure-panel as="div" class="flex flex-col gap-2 divide-y">
+					<facet-field
+						class="pt-2"
+						v-if="!loading"
+						v-for="facet in (results?.facet_counts as FacetField[]).sort(
 								(a, b) => facetValues[b.field_name].length - facetValues[a.field_name].length,
 							)"
-							:field-name="facet.field_name"
-							:facets="facet.counts"
-							:selected="facetValues[facet.field_name]"
-							@facetChange="
-								facetValues[facet.field_name] = $event;
-								$router.push({
-									query: {
-										...route.query,
-										facets: facetObjectToTypesenseQuery(facetValues, true),
-										page: 1,
-									},
-								});
-							"
-						/>
-					</disclosure-panel>
-				</disclosure>
-				<div class="min-w-full">
-					<div class="my-2 flex items-center justify-between">
-						<button
-							class="rounded border p-4 transition"
-							:class="
-								pageNum <= 1
-									? 'cursor-not-allowed text-gray-400'
-									: 'cursor-pointer hover:bg-slate-200 active:bg-slate-300'
-							"
-							:disabled="pageNum <= 1"
-							@click="
-								$router.push({
-									query: {
-										...route.query,
-										page: pageNum - 1,
-									},
-								})
-							"
-						>
-							<span class="sr-only">Previous Page</span>
-							<ChevronUpIcon class="h-4 w-4 -rotate-90" />
-						</button>
-						<span>
-							showing {{ (pageNum - 1) * limitNum + 1 }} -
-							{{ Math.min(results?.found || Infinity, pageNum * limitNum) }} out of
-							{{ results?.found }}
-						</span>
-						<button
-							class="rounded border p-4 transition"
-							:class="
-								pageNum * limitNum >= Number(results?.found)
-									? 'cursor-not-allowed text-gray-400'
-									: 'cursor-pointer hover:bg-slate-200 active:bg-slate-300'
-							"
-							:disabled="pageNum * limitNum >= Number(results?.found)"
-							@click="
-								$router.push({
-									query: {
-										...route.query,
-										page: pageNum + 1,
-									},
-								})
-							"
-						>
-							<span class="sr-only">Next Page</span>
-							<ChevronUpIcon class="h-4 w-4 rotate-90" />
-						</button>
-					</div>
-					<div
-						class="grid min-w-full grid-cols-2 md:grid-cols-[5fr_3fr_auto_auto] gap-x-8 gap-y-1"
-						v-if="!loading && results?.found"
+						:field-name="facet.field_name"
+						:facets="facet.counts"
+						:selected="facetValues[facet.field_name]"
+						@facetChange="
+							facetValues[facet.field_name] = $event;
+							$router.push({
+								query: {
+									...route.query,
+									facets: facetObjectToTypesenseQuery(facetValues, true),
+									page: 1,
+								},
+							});
+						"
+					/>
+				</disclosure-panel>
+			</disclosure>
+			<centered class="-z-10" v-if="loading || !results?.found">
+				<ArrowPathIcon v-if="loading" class="h-5 w-5 animate-spin" />
+				<span class="text-gray-400 italic" v-else>Nothing found.</span>
+			</centered>
+			<div v-else class="w-full max-w-container mx-auto">
+				<div class="my-2 flex items-center justify-between">
+					<button
+						class="rounded border p-4 transition"
+						:class="
+							pageNum <= 1
+								? 'cursor-not-allowed text-gray-400'
+								: 'cursor-pointer hover:bg-slate-200 active:bg-slate-300'
+						"
+						:disabled="pageNum <= 1"
+						@click="
+							$router.push({
+								query: {
+									...route.query,
+									page: pageNum - 1,
+								},
+							})
+						"
 					>
-						<div>
-							<nuxt-link
-								class="flex items-center gap-2 hover:bg-slate-200 p-1 -m-1 rounded transition active:bg-slate-300"
-								:to="{
-									query: {
-										...route.query,
-										page: 1,
-										sort_by: getSortString('edition-name'),
-									},
-								}"
-							>
-								Name
-								<ChevronUpIcon
-									v-if="route.query.sort_by && route.query.sort_by.includes('edition-name')"
-									:class="{
-										'rotate-180': !route.query.sort_by?.includes('desc'),
-									}"
-									class="w-5 h-5"
-								/>
-								<ChevronUpDownIcon v-else class="w-5 h-5 opacity-50" />
-								<span class="sr-only">Click to sort by Name</span>
-							</nuxt-link>
-						</div>
-						<div>Institution(s)</div>
-						<div class="hidden md:block">url</div>
-						<div class="text-right hidden md:block">Time</div>
-						<template v-for="hit in results?.hits">
-							<div class="col-span-2 md:col-span-4 border-t" />
-							<div class="-ml-2 self-center">
-								<internal-link :href="'/editions/' + hit.document.id">
-									<span
-										v-if="hit.highlight['edition-name']?.snippet"
-										v-html="hit.highlight['edition-name']?.snippet"
-									/>
-									<span v-else>
-										{{ hit.document["edition-name"] }}
-									</span>
-								</internal-link>
-							</div>
-							<div class="self-center">
-								{{
-									(hit.document["institution-s"] as Institution[])
-										.map((inst: Institution) => inst["institution-name"])
-										.join(", ")
-								}}
-							</div>
-							<div class="hidden items-center md:flex">
-								<external-link :href="hit.document.url" icon-only />
-							</div>
-							<div class="self-center text-right hidden md:block">
-								{{ hit.document["time-century"] }}
-							</div>
-						</template>
-						<div
-							v-if="Math.min(results?.found || Infinity, pageNum * limitNum) === results?.found"
-							class="col-span-4 border-t italic text-gray-300 text-center"
+						<span class="sr-only">Previous Page</span>
+						<ChevronUpIcon class="h-4 w-4 -rotate-90" />
+					</button>
+					<span>
+						showing {{ (pageNum - 1) * limitNum + 1 }} -
+						{{ Math.min(results?.found || Infinity, pageNum * limitNum) }} out of
+						{{ results?.found }}
+					</span>
+					<button
+						class="rounded border p-4 transition"
+						:class="
+							pageNum * limitNum >= Number(results?.found)
+								? 'cursor-not-allowed text-gray-400'
+								: 'cursor-pointer hover:bg-slate-200 active:bg-slate-300'
+						"
+						:disabled="pageNum * limitNum >= Number(results?.found)"
+						@click="
+							$router.push({
+								query: {
+									...route.query,
+									page: pageNum + 1,
+								},
+							})
+						"
+					>
+						<span class="sr-only">Next Page</span>
+						<ChevronUpIcon class="h-4 w-4 rotate-90" />
+					</button>
+				</div>
+				<div
+					class="grid min-w-full grid-cols-1 md:grid-cols-[5fr_3fr_auto_auto] gap-x-8 gap-y-1"
+					v-if="!loading && results?.found"
+				>
+					<div>
+						<nuxt-link
+							class="flex items-center gap-2 hover:bg-slate-200 p-1 -m-1 rounded transition active:bg-slate-300"
+							:to="{
+								query: {
+									...route.query,
+									page: 1,
+									sort_by: getSortString('edition-name'),
+								},
+							}"
 						>
-							You've reached the end.
+							Name
+							<ChevronUpIcon
+								v-if="route.query.sort_by && route.query.sort_by.includes('edition-name')"
+								:class="{
+									'rotate-180': !route.query.sort_by?.includes('desc'),
+								}"
+								class="w-5 h-5"
+							/>
+							<ChevronUpDownIcon v-else class="w-5 h-5 opacity-50" />
+							<span class="sr-only">Click to sort by Name</span>
+						</nuxt-link>
+					</div>
+					<div class="hidden md:block">Institution(s)</div>
+					<div class="hidden md:block">url</div>
+					<div class="text-right hidden md:block">Time</div>
+					<template v-for="hit in results?.hits">
+						<div class="md:col-span-4 border-t" />
+						<div class="-ml-2 self-center">
+							<internal-link :href="'/editions/' + hit.document.id">
+								<span
+									v-if="hit.highlight['edition-name']?.snippet"
+									v-html="hit.highlight['edition-name']?.snippet"
+								/>
+								<span v-else>
+									{{ hit.document["edition-name"] }}
+								</span>
+							</internal-link>
 						</div>
+						<div class="self-center">
+							{{
+								(hit.document["institution-s"] as Institution[])
+									.map((inst: Institution) => inst["institution-name"])
+									.join(", ")
+							}}
+						</div>
+						<div class="items-center flex">
+							<external-link class="hidden md:flex" :href="hit.document.url" icon-only />
+							<external-link class="md:hidden" :href="hit.document.url" />
+						</div>
+						<div class="self-center md:text-right">
+							{{ hit.document["time-century"] }}
+						</div>
+					</template>
+					<div
+						v-if="Math.min(results?.found || Infinity, pageNum * limitNum) === results?.found"
+						class="col-span-4 border-t italic text-gray-300 text-center"
+					>
+						You've reached the end.
 					</div>
 				</div>
 			</div>

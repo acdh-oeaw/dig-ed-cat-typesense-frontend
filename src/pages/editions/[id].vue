@@ -7,10 +7,9 @@ import { koi, pseudoBoolTranslation } from "@/utils/mapping-objects";
 import {
 	pseudoBool,
 	type Institution,
-	type PseudoBool,
 	type Edition,
 	type Koi,
-	type EditionKey,
+	type PseudoBool,
 } from "@/utils/types";
 import { ArrowPathIcon } from "@heroicons/vue/24/solid";
 import type { RouteLocationNormalized } from "vue-router";
@@ -20,6 +19,8 @@ const id = route.params.id;
 
 const loading: Ref<boolean> = ref(true);
 const results: Ref<Edition> = ref({} as Edition);
+
+const koiEntries = Object.entries(koi) as [Koi, string][];
 
 results.value = await getDocument(String(id));
 loading.value = false;
@@ -40,20 +41,24 @@ loading.value = false;
 				</h1>
 			</div>
 			<div class="grid m-2 lg:m-0 lg:grid-cols-[2fr_1fr]">
-				<div class="grid grid-cols-2">
-					<template v-for="[key, val] in Object.entries(koi)">
+				<div class="grid md:grid-cols-2">
+					<template v-for="[key, val] of koiEntries">
 						<span class="font-semibold">
 							{{ val }}
 						</span>
-						<span v-if="pseudoBool.includes(results[key])">
-							{{ pseudoBoolTranslation[results[key]] }}
+						<span v-if="pseudoBool.includes(results[key] as PseudoBool)">
+							{{ pseudoBoolTranslation[results[key] as PseudoBool] }}
 						</span>
 						<span v-else-if="typeof results[key as Koi] === 'object'">
 							<template v-if="typeof results[key][0] === 'string'">
-								{{ results[key].join(", ") }}
+								{{ Array(results[key]).join(", ") }}
 							</template>
 							<template v-else>
-								{{ results[key].map((obj: Institution) => obj["institution-name"]).join(", ") }}
+								{{
+									Array(results[key])
+										.map((obj) => obj["institution-name"])
+										.join(", ")
+								}}
 							</template>
 						</span>
 						<span v-else-if="key === 'url'">
@@ -62,7 +67,7 @@ loading.value = false;
 						<span v-else>
 							{{ results[key] }}
 						</span>
-						<div class="col-span-2 border-b pt-1 mb-1 last:border-0" />
+						<div class="md:col-span-2 border-b pt-1 mb-1 last:border-0" />
 					</template>
 				</div>
 				<div class="flex flex-col" v-if="results['institution-s'].length">

@@ -27,7 +27,8 @@ export interface Edition {
 	images: PseudoBool;
 	indices: PseudoBool;
 	infrastructure: string[];
-	"institution-s": object[];
+	"institution-s": Institution[];
+	"institution-s.institution-name": string;
 	language: string[];
 	"linked-open-data": PseudoBool;
 	"links-to-ext-resources": PseudoBool;
@@ -57,6 +58,7 @@ export interface Edition {
 	"xml-tei-transcription": PseudoBool;
 	"zoom-images": PseudoBool;
 }
+[koi];
 
 export interface Institution {
 	id: string;
