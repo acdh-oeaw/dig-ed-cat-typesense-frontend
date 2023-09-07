@@ -9,6 +9,10 @@ import {
 	MapIcon,
 } from "@heroicons/vue/24/outline";
 import { HomeIcon } from "@heroicons/vue/24/solid";
+
+const testLog = () => {
+	console.log("test");
+};
 </script>
 <template>
 	<header class="bg-slate-100 shadow z-10">
@@ -52,7 +56,7 @@ import { HomeIcon } from "@heroicons/vue/24/solid";
 				</div>
 			</div>
 			<div class="md:hidden">
-				<Menu as="div" class="relative" v-slot="{ open }">
+				<Menu as="div" class="relative" v-slot="{ open, close }">
 					<MenuButton class="p-4 border rounded hover:bg-slate-200 active:bg-slate-300 group">
 						<XMarkIcon
 							v-if="open"
@@ -74,10 +78,11 @@ import { HomeIcon } from "@heroicons/vue/24/solid";
 						<MenuItems
 							class="absolute flex right-0 flex-col min-w-fit w-56 origin-top-right bg-white shadow-lg rounded divide-y"
 						>
-							<MenuItem>
+							<MenuItem as="div" @click="close">
 								<nuxt-link
+									@click="close"
 									href="/"
-									class="hover:bg-slate-200 active:bg-slate-300 transition rounded p-4 group flex gap-4 text-lg"
+									class="hover:bg-slate-200 active:bg-slate-300 transition rounded-t p-4 group flex gap-4 text-lg"
 								>
 									<HomeOutline
 										class="w-6 h-6 group-hover:scale-110 group-active:scale-90 transition"
@@ -85,9 +90,10 @@ import { HomeIcon } from "@heroicons/vue/24/solid";
 									Home
 								</nuxt-link>
 							</MenuItem>
-							<MenuItem>
+							<MenuItem as="div" @click="close">
 								<nuxt-link
-									class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition flex gap-4 group"
+									@click="close"
+									class="text-lg p-4 hover:bg-slate-200 active:bg-slate-300 transition flex gap-4 group"
 									href="/search"
 								>
 									<MagnifyingGlassIcon
@@ -96,25 +102,27 @@ import { HomeIcon } from "@heroicons/vue/24/solid";
 									Browse
 								</nuxt-link>
 							</MenuItem>
-							<MenuItem>
+							<MenuItem as="div" @click="close">
 								<nuxt-link
-									class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition flex gap-4 group"
+									@click="close"
+									class="text-lg p-4 hover:bg-slate-200 active:bg-slate-300 transition flex gap-4 group"
 									href="/map"
 								>
 									<MapIcon class="w-6 h-6 group-hover:scale-110 group-active:scale-90 transition" />
 									Map
 								</nuxt-link>
 							</MenuItem>
-							<MenuItem>
+							<MenuItem as="div" @click="close">
 								<nuxt-link
-									class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition flex gap-4 group"
+									@click="close"
+									class="text-lg rounded-b p-4 hover:bg-slate-200 active:bg-slate-300 transition flex gap-4 group"
 									href="/download"
 								>
 									<span class="sr-only">Download Files</span>
 									<ArrowDownTrayIcon
 										class="w-6 h-6 group-hover:scale-110 group-active:scale-90 transition"
 									/>
-									Downlowd
+									Download
 								</nuxt-link>
 							</MenuItem>
 						</MenuItems>

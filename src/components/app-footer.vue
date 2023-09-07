@@ -1,7 +1,7 @@
 <template>
 	<footer class="shadow bg-slate-100">
 		<div class="container mx-auto p-2">
-			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4 justify-around">
+			<div class="flex flex-wrap gap-4 my-4 justify-around">
 				<div>
 					<a href="https://www.oeaw.ac.at/acdh/" class="navlink content-center">
 						<img

@@ -128,24 +128,28 @@ watch(
 		<Head>
 			<Title>Browse Editions</Title>
 		</Head>
-		<div class="mx-auto flex max-w-container items-center px-2">
-			<input
-				type="search"
-				v-model="input"
-				@input="
-					$router.replace({
-						query: {
-							...route.query,
-							q: input,
-							page: 1,
-						},
-					})
-				"
-				class="mx-auto my-4 h-16 min-w-full rounded border p-4 shadow"
-				placeholder="Search..."
-			/>
-		</div>
-		<div>
+		<centered class="-z-10" v-if="loading || !results?.found">
+			<ArrowPathIcon v-if="loading" class="h-5 w-5 animate-spin" />
+			<span class="text-gray-400 italic" v-else>Nothing found.</span>
+		</centered>
+		<div v-else>
+			<div class="mx-auto flex max-w-container items-center px-2">
+				<input
+					type="search"
+					v-model="input"
+					@input="
+						$router.replace({
+							query: {
+								...route.query,
+								q: input,
+								page: 1,
+							},
+						})
+					"
+					class="mx-auto my-4 h-16 min-w-full rounded border p-4 shadow"
+					placeholder="Search..."
+				/>
+			</div>
 			<div
 				class="grid min-w-full gap-4 divide-y p-4 md:grid-cols-[1fr_4fr] 2xl:grid-cols-[1fr_3fr_1fr] 2xl:gap-32 2xl:divide-y-0 2xl:px-16"
 			>
@@ -184,11 +188,7 @@ watch(
 						/>
 					</disclosure-panel>
 				</disclosure>
-				<centered class="-z-10" v-if="loading || !results?.found">
-					<ArrowPathIcon v-if="loading" class="h-5 w-5 animate-spin" />
-					<span class="text-gray-400 italic" v-else>Nothing found.</span>
-				</centered>
-				<div v-else class="min-w-full">
+				<div class="min-w-full">
 					<div class="my-2 flex items-center justify-between">
 						<button
 							class="rounded border p-4 transition"
