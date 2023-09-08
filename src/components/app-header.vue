@@ -9,10 +9,6 @@ import {
 	MapIcon,
 } from "@heroicons/vue/24/outline";
 import { HomeIcon } from "@heroicons/vue/24/solid";
-
-const testLog = () => {
-	console.log("test");
-};
 </script>
 <template>
 	<header class="bg-slate-100 shadow z-10">
@@ -32,7 +28,7 @@ const testLog = () => {
 				</div>
 				<div>
 					<nuxt-link
-						class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition"
+						class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition select-none"
 						href="/search"
 					>
 						Browse
@@ -40,7 +36,7 @@ const testLog = () => {
 				</div>
 				<div>
 					<nuxt-link
-						class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition"
+						class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition select-none"
 						href="/map"
 					>
 						Map
@@ -48,7 +44,7 @@ const testLog = () => {
 				</div>
 				<div>
 					<nuxt-link
-						class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition"
+						class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition select-none"
 						href="/download"
 					>
 						Downloads
@@ -82,7 +78,7 @@ const testLog = () => {
 								<nuxt-link
 									@click="close"
 									href="/"
-									class="hover:bg-slate-200 active:bg-slate-300 transition rounded-t p-4 group flex gap-4 text-lg"
+									class="hover:bg-slate-200 active:bg-slate-300 transition rounded-t p-4 group flex gap-4 text-lg select-none"
 								>
 									<HomeOutline
 										class="w-6 h-6 group-hover:scale-110 group-active:scale-90 transition"
@@ -93,7 +89,7 @@ const testLog = () => {
 							<MenuItem as="div" @click="close">
 								<nuxt-link
 									@click="close"
-									class="text-lg p-4 hover:bg-slate-200 active:bg-slate-300 transition flex gap-4 group"
+									class="text-lg p-4 hover:bg-slate-200 active:bg-slate-300 transition flex gap-4 group select-none"
 									href="/search"
 								>
 									<MagnifyingGlassIcon
@@ -105,7 +101,7 @@ const testLog = () => {
 							<MenuItem as="div" @click="close">
 								<nuxt-link
 									@click="close"
-									class="text-lg p-4 hover:bg-slate-200 active:bg-slate-300 transition flex gap-4 group"
+									class="text-lg p-4 hover:bg-slate-200 active:bg-slate-300 transition flex gap-4 group select-none"
 									href="/map"
 								>
 									<MapIcon class="w-6 h-6 group-hover:scale-110 group-active:scale-90 transition" />
@@ -115,7 +111,7 @@ const testLog = () => {
 							<MenuItem as="div" @click="close">
 								<nuxt-link
 									@click="close"
-									class="text-lg rounded-b p-4 hover:bg-slate-200 active:bg-slate-300 transition flex gap-4 group"
+									class="text-lg rounded-b p-4 hover:bg-slate-200 active:bg-slate-300 transition flex gap-4 group select-none"
 									href="/download"
 								>
 									<span class="sr-only">Download Files</span>

@@ -6,7 +6,7 @@
 			<div class="my-2 font-bold">
 				<nuxt-link href="/imprint">Imprint</nuxt-link>
 			</div>
-			<div class="my-2 font-bold">Contact</div>
+			<div class="font-bold my-2">Contact</div>
 			<div class="my-2">
 				Greta Franzini
 				<br />

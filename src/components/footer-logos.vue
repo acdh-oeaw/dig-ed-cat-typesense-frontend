@@ -4,7 +4,7 @@
 			<a href="https://www.oeaw.ac.at/acdh/" class="navlink content-center">
 				<img
 					src="@/assets/images/logo-acdh-with-text.svg"
-					class="h-16 w-auto mx-auto"
+					class="h-16 w-auto mx-auto select-none"
 					alt="ACDHCH"
 					title="Austrian Centre for Digital Humanities and Cultural Heritage"
 				/>
@@ -14,7 +14,7 @@
 			<a href="http://www.ucl.ac.uk/dh/" class="navlink">
 				<img
 					src="@/assets/images/logo-ucldh.png"
-					class="h-16 w-auto mx-auto"
+					class="h-16 w-auto mx-auto select-none"
 					alt="UCLDH"
 					title="UCL Centre for Digital Humanities"
 				/>
