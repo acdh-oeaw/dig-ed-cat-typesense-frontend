@@ -165,8 +165,8 @@ watch(
 						class="pt-2"
 						v-if="!loading"
 						v-for="facet in (results?.facet_counts as FacetField[]).sort(
-								(a, b) => facetValues[b.field_name].length - facetValues[a.field_name].length,
-							)"
+							(a, b) => facetValues[b.field_name].length - facetValues[a.field_name].length,
+						)"
 						:field-name="facet.field_name"
 						:facets="facet.counts"
 						:selected="facetValues[facet.field_name]"
@@ -236,9 +236,15 @@ watch(
 					</button>
 				</div>
 				<div
-					class="grid min-w-full grid-cols-1 md:grid-cols-[5fr_3fr_auto_auto] gap-x-8 gap-y-1"
+					class="grid min-w-full grid-cols-1 md:grid-cols-[auto_5fr_3fr_auto_auto] gap-x-8 gap-y-1"
 					v-if="!loading && results?.found"
 				>
+					<div>
+						<div class="hidden items-center gap-2 p-1 -m-1 md:flex">
+							ID
+							<ChevronUpIcon v-if="!route.query.sort_by" class="w-4 h-4 rotate-180 opacity-50" />
+						</div>
+					</div>
 					<div>
 						<nuxt-link
 							class="flex items-center gap-2 hover:bg-slate-200 p-1 -m-1 rounded transition active:bg-slate-300"
@@ -256,7 +262,7 @@ watch(
 								:class="{
 									'rotate-180': !route.query.sort_by?.includes('desc'),
 								}"
-								class="w-5 h-5"
+								class="w-4 h-4"
 							/>
 							<ChevronUpDownIcon v-else class="w-5 h-5 opacity-50" />
 							<span class="sr-only">Click to sort by Name</span>
@@ -266,7 +272,11 @@ watch(
 					<div class="hidden md:block">url</div>
 					<div class="text-right hidden md:block">Time</div>
 					<template v-for="hit in results?.hits">
-						<div class="md:col-span-4 border-t" />
+						<div class="md:col-span-5 border-t" />
+						<div class="self-center text-gray-500 text-sm md:text-base md:text-black">
+							<span class="md:hidden">ID:</span>
+							{{ hit.document.id }}
+						</div>
 						<div class="-ml-2 self-center">
 							<internal-link :href="'/editions/' + hit.document.id">
 								<span
