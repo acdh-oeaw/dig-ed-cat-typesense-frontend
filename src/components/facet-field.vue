@@ -2,14 +2,21 @@
 import type { ComputedRef, Ref } from "#imports";
 import Chip from "@/components/chip.vue";
 import { getFacets } from "@/composable/use-data";
-import { removeDuplicates } from "@/utils/helpers";
-import { koi } from "@/utils/mapping-objects";
-import type { FacetField, Facet, deFactoFacetsKey, Koi } from "@/utils/types";
+import { removeDuplicates, firstLetterUp } from "@/utils/helpers";
+import { koi, pseudoBoolTranslation } from "@/utils/mapping-objects";
+import {
+	type FacetField,
+	type Facet,
+	type DeFactoFacetsKey,
+	type Koi,
+	type PseudoBool,
+	pseudoBool,
+} from "@/utils/types";
 import { ChevronDownIcon } from "@heroicons/vue/24/solid";
 import { ref, onMounted, computed } from "vue";
 
 const props = defineProps<{
-	fieldName: deFactoFacetsKey;
+	fieldName: DeFactoFacetsKey;
 	facets: Facet[];
 	selected?: string[];
 }>();
@@ -71,7 +78,12 @@ const facetsWithSelected: ComputedRef<Facet[]> = computed(() => {
 				:for="count.value"
 				class="flex w-full cursor-pointer items-center justify-between gap-1"
 			>
-				{{ count.value }}
+				<span v-if="pseudoBool.includes(count.value as PseudoBool)">
+					{{ firstLetterUp(pseudoBoolTranslation[count.value as PseudoBool]) }}
+				</span>
+				<span v-else>
+					{{ count.value }}
+				</span>
 				<chip v-if="count.count">
 					{{ count.count }}
 				</chip>

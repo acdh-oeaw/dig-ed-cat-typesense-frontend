@@ -1,13 +1,14 @@
 <script lang="ts" setup>
-import { useRoute, ref, type Ref, watch, computed, type ComputedRef } from "#imports";
+import { useRoute, ref, type Ref, watch, computed, type ComputedRef, koi } from "#imports";
 import centered from "@/components/centered.vue";
 import externalLink from "@/components/external-link.vue";
 import internalLink from "@/components/internal-link.vue";
 import { getDocuments } from "@/composable/use-data";
+import { emptyDeFactoFacets } from "@/utils/mapping-objects";
 import type {
 	Edition,
-	deFactoFacets,
-	deFactoFacetsKey,
+	DeFactoFacets,
+	DeFactoFacetsKey,
 	Institution,
 	FacetField,
 } from "@/utils/types";
@@ -23,18 +24,10 @@ let input: string = String(route.query.q || "");
 const results: Ref<SearchResponse<Edition> | null> = ref(null);
 let loading: Ref<boolean> = ref(true);
 
-let facetValues: Ref<deFactoFacets> = ref({
-	"historical-period": [],
-	language: [],
-	"time-century": [],
-	audience: [],
-	"begin-date": [],
-	"end-date": [],
-	"institution-s.institution-name": [],
-});
+let facetValues: Ref<DeFactoFacets> = ref(emptyDeFactoFacets);
 
 const facetObjectToTypesenseQuery: Function = (
-	facetObject: deFactoFacets,
+	facetObject: DeFactoFacets,
 	encode: boolean = false,
 ) => {
 	const retArray: string[] = [];
@@ -51,10 +44,10 @@ const facetObjectToTypesenseQuery: Function = (
 const typesenseQueryToFacetObject = (typeQuery: string, decode: boolean = false) => {
 	const query: string = decode ? decodeURIComponent(typeQuery) : typeQuery;
 	const facetArray: string[] = query.split("&&");
-	const retObject: deFactoFacets = { ...facetValues.value };
+	const retObject: DeFactoFacets = { ...facetValues.value };
 	facetArray.forEach((facetString: string) => {
-		const facetSplit = facetString.split(":=") as deFactoFacetsKey[];
-		retObject[facetSplit[0] as deFactoFacetsKey] = JSON.parse(
+		const facetSplit = facetString.split(":=") as DeFactoFacetsKey[];
+		retObject[facetSplit[0] as DeFactoFacetsKey] = JSON.parse(
 			String(facetSplit[1])?.replaceAll("`", '"'),
 		);
 	});

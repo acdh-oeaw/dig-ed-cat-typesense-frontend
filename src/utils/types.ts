@@ -83,7 +83,7 @@ export interface Facet {
 
 // SearchResponseFacetCountSchema<deFactoFacets> would be the right interface here in theory, but typesemse is responding with a different stat object than expected, so i had to wrtie new interfaces
 export interface FacetField {
-	field_name: deFactoFacetsKey;
+	field_name: DeFactoFacetsKey;
 	counts: Array<Facet>;
 	stats: FacetStats;
 }
@@ -103,16 +103,56 @@ export interface coord {
 	name?: string;
 }
 
-export interface deFactoFacets {
-	"historical-period": string[];
-	language: string[];
-	"time-century": string[];
+export interface DeFactoFacets {
+	"account-of-textual-variance": string[];
+	"advanced-search": string[];
+	api: string[];
 	audience: string[];
 	"begin-date": string[];
+	citation: string[];
+	"creative-commons-license": string[];
+	crowdsourcing: string[];
+	"current-availability": string[];
+	digital: string[];
+	edition: string[];
 	"end-date": string[];
+	feedback: string[];
+	glossary: string[];
+	"historical-period": string[];
+	"image-manipulation-brightness-rotation-etc": string[];
+	images: string[];
+	indices: string[];
+	infrastructure: string[];
+	"institution-s": string[];
 	"institution-s.institution-name": string[];
+	language: string[];
+	"linked-open-data": string[];
+	"links-to-ext-resources": string[];
+	"manager-or-editor": string[];
+	"mobile-friendly-application": string[];
+	"ocr-or-keyed": string[];
+	"open-source-open-access": string[];
+	"philological-statement": string[];
+	"place-of-origin-of-source-material-s": string[];
+	"print-facsimile-complementary-output": string[];
+	"print-friendly-view": string[];
+	"repository-of-source-material-s": string[];
+	"sahle-catalog": string[];
+	scholarly: string[];
+	"source-text-translation": string[];
+	"sponsor-funding-body": string[];
+	"string-matching": string[];
+	"technological-statement": string[];
+	"text-image-linking": string[];
+	"time-century": string[];
+	"value-of-witnesses": string[];
+	"website-language": string[];
+	"writing-support": string[];
+	"xml-tei-available-to-download": string[];
+	"xml-tei-transcription": string[];
+	"zoom-images": string[];
 }
 
-export type deFactoFacetsKey = keyof deFactoFacets;
+export type DeFactoFacetsKey = keyof DeFactoFacets;
 export type EditionKey = keyof Edition;
 export type Koi = keyof typeof koi;
