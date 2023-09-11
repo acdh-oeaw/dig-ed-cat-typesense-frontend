@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useRoute, ref, type Ref, watch, computed, type ComputedRef, koi } from "#imports";
+import { useRoute, ref, type Ref, watch, computed, type ComputedRef } from "#imports";
 import centered from "@/components/centered.vue";
 import externalLink from "@/components/external-link.vue";
 import internalLink from "@/components/internal-link.vue";
@@ -298,7 +298,7 @@ watch(
 					</template>
 					<div
 						v-if="Math.min(results?.found || Infinity, pageNum * limitNum) === results?.found"
-						class="md:col-span-4 border-t italic text-gray-300 text-center"
+						class="md:col-span-5 border-t italic text-gray-300 text-center"
 					>
 						You've reached the end.
 					</div>

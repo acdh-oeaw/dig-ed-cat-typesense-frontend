@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ComputedRef, Ref } from "#imports";
+import { type ComputedRef, type Ref, useRoute } from "#imports";
 import Chip from "@/components/chip.vue";
 import { getFacets } from "@/composable/use-data";
 import { removeDuplicates, firstLetterUp } from "@/utils/helpers";
@@ -14,12 +14,17 @@ import {
 } from "@/utils/types";
 import { ChevronDownIcon } from "@heroicons/vue/24/solid";
 import { ref, onMounted, computed } from "vue";
+import type { RouteLocationNormalized } from "vue-router";
 
 const props = defineProps<{
 	fieldName: DeFactoFacetsKey;
 	facets: Facet[];
 	selected?: string[];
 }>();
+
+const route: RouteLocationNormalized = useRoute();
+
+console.log("query", route.query);
 
 let facetModel: Ref<string[] | undefined> = ref(props.selected);
 let loading: Ref<boolean> = ref(true);
@@ -32,7 +37,7 @@ let scopeFacet: Ref<FacetField> = ref({
 
 const loadFacets: Function = async (max: number = 500, facetQuery: string = "") => {
 	loading.value = true;
-	const results = await getFacets(props.fieldName, max);
+	const results = await getFacets(props.fieldName, max, route.query);
 
 	scopeFacet.value = (results.facet_counts?.length ? results.facet_counts[0] : {}) as FacetField;
 
@@ -68,14 +73,14 @@ const facetsWithSelected: ComputedRef<Facet[]> = computed(() => {
 			<input
 				type="checkbox"
 				class="h-5 w-5 cursor-pointer ml-1"
-				:id="count.value"
+				:id="`${fieldName}:${count.value}`"
 				:value="count.value"
 				@change="$emit('facetChange', facetModel)"
 				v-model="facetModel"
 			/>
 			&nbsp;
 			<label
-				:for="count.value"
+				:for="`${fieldName}:${count.value}`"
 				class="flex w-full cursor-pointer items-center justify-between gap-1"
 			>
 				<span v-if="pseudoBool.includes(count.value as PseudoBool)">
