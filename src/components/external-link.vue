@@ -7,7 +7,12 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-	<a :href="href" class="items-center flex group w-fit" target="_blank" rel="noreferrer noopener">
+	<a
+		:href="href"
+		class="items-center inline-flex group w-fit text-blue-900"
+		target="_blank"
+		rel="noreferrer noopener"
+	>
 		<span class="group-hover:underline">
 			<slot v-if="!iconOnly">
 				{{ href }}
