@@ -7,7 +7,7 @@ import CustomBlockquote from "@/components/custom-blockquote.vue";
 		<Head>
 			<Title>User Feedback</Title>
 		</Head>
-		<h1 class="text-4xl mb-4">User feedback and testimonials</h1>
+		<h1 class="text-4xl my-4">User feedback and testimonials</h1>
 		<CustomBlockquote>
 			<p>
 				That digital editions website is really nicely done. There is a slight wiggle on the

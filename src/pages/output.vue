@@ -6,7 +6,7 @@ import ExternalLink from "@/components/external-link.vue";
 		<Head>
 			<Title>Research Output</Title>
 		</Head>
-		<h1 class="text-4xl mb-4">Research output and visibility</h1>
+		<h1 class="text-4xl my-4">Research output and visibility</h1>
 		<h2 class="text-2xl">Publications and posters</h2>
 		<ul class="list-disc ml-8 mb-8 mt-2">
 			<li>

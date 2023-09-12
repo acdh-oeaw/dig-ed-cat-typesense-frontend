@@ -6,7 +6,7 @@ import ExternalLink from "@/components/external-link.vue";
 		<Head>
 			<Title>Frequently Asked Questions</Title>
 		</Head>
-		<h1 class="text-4xl mb-4">Frequently Asked Questions (FAQ)</h1>
+		<h1 class="text-4xl my-4">Frequently Asked Questions (FAQ)</h1>
 
 		<p class="mb-3">
 			<strong class="text-bold">
