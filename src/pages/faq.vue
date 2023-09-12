@@ -1,3 +1,6 @@
+<script setup lang="ts">
+import ExternalLink from "@/components/external-link.vue";
+</script>
 <template>
 	<div class="max-w-container mx-auto p-2">
 		<Head>
