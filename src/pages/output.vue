@@ -75,7 +75,9 @@ import ExternalLink from "@/components/external-link.vue";
 			<li>
 				Andorfer, P. and Franzini, G. (2018)
 				<em class="italic">
-					<ExternalLink href="/static/webpage/docs/2018_05_25_Weimar.pdf">
+					<ExternalLink
+						href="https://dig-ed-cat.acdh.oeaw.ac.at/static/webpage/docs/2018_05_25_Weimar.pdf"
+					>
 						Der nächste Schritt? Linked Open Data und Visualisierung beim Catalogue of Digital
 						Editions.
 					</ExternalLink>
