@@ -8,7 +8,7 @@ const props = defineProps<{
 <template>
 	<nuxt-link
 		:href="href"
-		class="items-center grid grid-cols-[auto_auto_1fr] hover:bg-slate-200 active:bg-slate-300 p-2 rounded transition"
+		class="items-center inline-grid grid-cols-[auto_auto_1fr] hover:bg-slate-200 active:bg-slate-300 p-2 rounded transition"
 	>
 		<span>
 			<slot>
@@ -16,7 +16,7 @@ const props = defineProps<{
 			</slot>
 		</span>
 		&nbsp;
-		<span class="text-right">
+		<span class="text-right flex">
 			<ChevronRightIcon class="h-5 w-5 inline-block" />
 		</span>
 	</nuxt-link>
