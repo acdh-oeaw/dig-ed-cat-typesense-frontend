@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, useRoute, type Ref } from "#imports";
-import externalLink from "@/components/external-link.vue";
+import externalLink from "@/components/ExternalLink.vue";
 import institutionCard from "@/components/institution-card.vue";
 import { getDocument } from "@/composable/use-data";
 import { koi, pseudoBoolTranslation } from "@/utils/mapping-objects";
@@ -62,7 +62,7 @@ loading.value = false;
 							</template>
 						</span>
 						<span v-else-if="key === 'url'">
-							<external-link :href="results[key]" />
+							<ExternalLink :href="results[key]" />
 						</span>
 						<span v-else>
 							{{ results[key] }}
@@ -76,12 +76,12 @@ loading.value = false;
 					</h1>
 					<institution-card
 						v-if="results['institution-s'].length != 1"
-						:institutions="(results['institution-s'] as Institution[])"
+						:institutions="results['institution-s'] as Institution[]"
 						class="m-5 mb-0"
 					/>
 					<institution-card
 						v-else
-						:institution="(results['institution-s'][0] as Institution)"
+						:institution="results['institution-s'][0] as Institution"
 						class="m-5 mb-0"
 					/>
 				</div>
