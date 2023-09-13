@@ -9,7 +9,7 @@ const props = defineProps<{
 <template>
 	<a
 		:href="href"
-		class="items-center inline-flex group w-fit text-blue-900"
+		class="items-center inline-flex group w-fit text-secondary-300"
 		target="_blank"
 		rel="noreferrer noopener"
 	>

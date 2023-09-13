@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ExternalLink from "@/components/external-link.vue";
+import CustomCodeBlock from "@/components/custom-code-block.vue";
 </script>
 <template>
 	<div class="max-w-container mx-auto p-2">
@@ -34,7 +35,7 @@ import ExternalLink from "@/components/external-link.vue";
 			to add it to the project's
 			<ExternalLink href="https://github.com/gfranzini/digEds_cat/issues">
 				GitHub repository as an issue with the
-				<code class="p-[2px_4px] bg-red-50 text-red-500 rounded-sm">POTENTIAL</code>
+				<CustomCodeBlock>POTENTIAL</CustomCodeBlock>
 				label
 			</ExternalLink>
 			and we'll take a look. Our

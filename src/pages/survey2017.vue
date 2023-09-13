@@ -1,5 +1,8 @@
 <template>
 	<div class="max-w-container p-2 mx-auto">
+		<Head>
+			<Title>Survey 2017</Title>
+		</Head>
 		<h1 class="text-4xl my-4">Surveying User Requirements in the Digital Humanities</h1>
 		<p class="py-2">
 			In March 2017 Greta circulated a questionnaire aimed at better understanding what users of
