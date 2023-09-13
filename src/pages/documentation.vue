@@ -186,9 +186,9 @@ import { ClockIcon } from "@heroicons/vue/24/outline";
 				designed to be simple and pragmatic.
 				<br />
 				Some fields in the
-				<em class="italic">Catalogue</em>
-				's data file contain decimal numbers as values to measure the degree of compliance of a
-				project to a particular feature: 0 stands for 'no compliance', 0.5 for 'somewhat/partially
+				<em class="italic">Catalogue's</em>
+				data file contain decimal numbers as values to measure the degree of compliance of a project
+				to a particular feature: 0 stands for 'no compliance', 0.5 for 'somewhat/partially
 				compliant', 1 for 'fully compliant'. Numbers make it easier to run calculations and
 				statistical analyses over the data-set. When fetching data updates, the web application
 				transforms these values into human-readable information: 0 becomes 'no', 0.5 becomes
@@ -242,9 +242,9 @@ import { ClockIcon } from "@heroicons/vue/24/outline";
 				<li>
 					If you're familiar with GitHub, you can fork
 					<ExternalLink href="https://github.com/gfranzini/digEds_cat">
-						the data repository
+						the data repository,
 					</ExternalLink>
-					, edit the
+					edit the
 					<CustomCodeBlock>.csv</CustomCodeBlock>
 					file and create a pull request.
 				</li>
@@ -361,9 +361,9 @@ import { ClockIcon } from "@heroicons/vue/24/outline";
 					Requirements in the Digital Humanities',
 					<em class="italic">
 						Journal on Computing and Cultural Heritage (JOCCH) - Special Issue on Evaluation of
-						Digital Resources
+						Digital Resources,
 					</em>
-					, 12(1), pp. 1-23. DOI:
+					12(1), pp. 1-23. DOI:
 					<ExternalLink href="https://dl.acm.org/citation.cfm?doid=3230671">
 						10.1145/3230671
 					</ExternalLink>
@@ -382,23 +382,22 @@ import { ClockIcon } from "@heroicons/vue/24/outline";
 					<ExternalLink href="http://dx.doi.org/10.11647/OBP.0095.09">
 						10.11647/OBP.0095.09
 					</ExternalLink>
-					[
-					<strong>describes an early version</strong>
+
+					<strong>[describes an early version</strong>
 					of the
-					<em class="italic">Catalogue of Digital Editions</em>
-					]
+					<em class="italic">Catalogue of Digital Editions]</em>
 				</li>
 				<li>
 					Krippendorf, K. (2004)
-					<em class="italic">Content Analysis: An Introduction to Its Methodology</em>
-					. 2nd edn. Thousand Oaks, CA: Sage.
+					<em class="italic">Content Analysis: An Introduction to Its Methodology.</em>
+					2nd edn. Thousand Oaks, CA: Sage.
 				</li>
 				<li>
 					Warwick, C., Galina, I., Terras, M., Huntington, P., Pappa, N. (2008) 'The master
 					builders: LAIRAH research on good practice in the construction of digital humanities
 					projects',
-					<em class="italic">Literary and Linguistic Computing</em>
-					, 23(3), pp. 383-396. DOI:
+					<em class="italic">Literary and Linguistic Computing,</em>
+					23(3), pp. 383-396. DOI:
 					<ExternalLink
 						href="https://academic.oup.com/dsh/article/23/3/383/937157/The-master-builders-LAIRAH-research-on-good"
 					>
@@ -498,8 +497,8 @@ import { ClockIcon } from "@heroicons/vue/24/outline";
 			<h3 class="text-xl my-3">Browsing the data</h3>
 			<p>
 				This web application provides different ways of browsing the digital editions in the
-				<em class="italic">Catalogue</em>
-				, either as a table or as map and chart visualisations.
+				<em class="italic">Catalogue,</em>
+				either as a table or as map and chart visualisations.
 			</p>
 			<h4 class="text-lg my-2">Table view</h4>
 
