@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, useRoute, type Ref } from "#imports";
-import externalLink from "@/components/ExternalLink.vue";
+import ExternalLink from "@/components/external-link.vue";
 import institutionCard from "@/components/institution-card.vue";
 import { getDocument } from "@/composable/use-data";
 import { koi, pseudoBoolTranslation } from "@/utils/mapping-objects";

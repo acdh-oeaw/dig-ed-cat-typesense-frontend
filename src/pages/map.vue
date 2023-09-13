@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { definePageMeta, setPageLayout } from "#imports";
 import institutions from "@/assets/data/institutions_places_enriched.json";
-import LeafletMap from "@/components/mapComponent.vue";
+import LeafletMap from "@/components/map-component.vue";
 import type { coord } from "@/utils/types";
 
 const coords: coord[] = institutions.map((inst) => ({

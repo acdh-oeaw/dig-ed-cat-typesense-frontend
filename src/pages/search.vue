@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useRoute, ref, type Ref, watch, computed, type ComputedRef } from "#imports";
 import centered from "@/components/centered.vue";
-import externalLink from "@/components/ExternalLink.vue";
+import externalLink from "@/components/external-link.vue";
 import internalLink from "@/components/internal-link.vue";
 import { getDocuments } from "@/composable/use-data";
 import { emptyDeFactoFacets } from "@/utils/mapping-objects";

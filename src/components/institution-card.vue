@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import ExternalLink from "@/components/ExternalLink.vue";
-import leafletMap from "@/components/mapComponent.vue";
+import ExternalLink from "@/components/external-link.vue";
+import leafletMap from "@/components/map-component.vue";
 import type { Institution } from "@/utils/types";
 
 const props = defineProps<{
