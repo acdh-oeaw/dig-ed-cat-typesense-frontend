@@ -36,7 +36,7 @@ export const koi = {
 	api: "API",
 	"ride-review": "RIDE review",
 	"sahle-catalog": "Sahle Catalog",
-	"handle-pid": "handle",
+	"handle-pid": "Handle",
 	"institution-s.institution-name": "Institutions",
 };
 

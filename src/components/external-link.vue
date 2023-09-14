@@ -4,6 +4,7 @@ import { LinkIcon } from "@heroicons/vue/24/solid";
 const props = defineProps<{
 	href: string;
 	iconOnly?: boolean;
+	noIcon?: boolean;
 }>();
 </script>
 <template>
@@ -19,6 +20,6 @@ const props = defineProps<{
 			</slot>
 		</span>
 		&nbsp;
-		<LinkIcon class="h-4 w-4" />
+		<LinkIcon v-if="!noIcon" class="h-4 w-4 shrink-0" />
 	</a>
 </template>

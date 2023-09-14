@@ -43,26 +43,15 @@ loading.value = false;
 			<div class="grid m-2 lg:m-0 lg:grid-cols-[2fr_1fr]">
 				<div class="grid md:grid-cols-2">
 					<template v-for="[key, val] of koiEntries">
-						<span class="font-semibold">
-							{{ val }}
+						<span class="font-semibold">{{ val }}</span>
+						<span v-if="val === 'Institutions'">
+							<InstitutionLinks :institutions="results['institution-s']" />
 						</span>
-						<span v-if="pseudoBool.includes(results[key] as PseudoBool)">
+						<span v-else-if="pseudoBool.includes(results[key] as PseudoBool)">
 							{{ pseudoBoolTranslation[results[key] as PseudoBool] }}
 						</span>
-						<span v-else-if="typeof results[key as Koi] === 'object'">
-							<template v-if="typeof results[key][0] === 'string'">
-								{{ Array(results[key]).join(", ") }}
-							</template>
-							<template v-else>
-								{{
-									Array(results[key])
-										.map((obj) => obj["institution-name"])
-										.join(", ")
-								}}
-							</template>
-						</span>
-						<span v-else-if="key === 'url'">
-							<ExternalLink :href="results[key]" />
+						<span v-else-if="typeof results[key] === 'object'">
+							{{ Array(results[key]).join(", ") }}
 						</span>
 						<span v-else>
 							{{ results[key] }}

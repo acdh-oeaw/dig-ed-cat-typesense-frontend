@@ -156,3 +156,33 @@ export interface DeFactoFacets {
 export type DeFactoFacetsKey = keyof DeFactoFacets;
 export type EditionKey = keyof Edition;
 export type Koi = keyof typeof koi;
+
+export interface Network {
+	attributes: {
+		name: string;
+		description: string;
+	};
+	options: {
+		type: string;
+		multi: boolean;
+		allowSelfLoops: boolean;
+	};
+	nodes: Node[];
+	edges: Edge[];
+}
+
+export interface Node {
+	key: string;
+	attributes: {
+		label: string;
+		type: "Edition" | "Institution";
+	};
+}
+export interface Edge {
+	key: string;
+	source: Node["key"];
+	target: Node["key"];
+	attributes?: {
+		type: string;
+	};
+}
