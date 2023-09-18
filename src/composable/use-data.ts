@@ -1,6 +1,6 @@
 import { useDefaultClient, network } from "#imports";
 import type { SearchParams, SearchParamsWithPreset } from "typesense/lib/Typesense/Documents";
-import type { Node } from "@/utils/types";
+import type { Edge, Node } from "@/utils/types";
 import type { LocationQuery } from "vue-router";
 
 export async function getDocument<CollectionEntry extends Record<string, any>>(id: string) {
@@ -55,13 +55,23 @@ export async function getFacets<CollectionEntry extends Record<string, any>>(
 export async function getNetwork(type?: string[], label?: string) {
 	const response = await network();
 	const json = await response.json();
+	console.log("json before", { ...json });
 
-	if (!label && !type) return json;
-	json.nodes = json.nodes.filter(
-		(node: Node) =>
-			(type || ["Edition", "Institution"]).includes(node.attributes?.type) &&
-			node.attributes?.label.includes(label),
-	);
+	if (label) {
+		json.nodes = json.nodes.filter(
+			(node: Node) => node.attributes?.label.toLowerCase().includes(label.toLowerCase()),
+		);
+	}
+	if (type) {
+		json.nodes = json.nodes.filter((node: Node) => type.includes(node.attributes?.type));
+	}
+	if (type || label) {
+		json.edges = json.edges.filter(
+			(edge: Edge) =>
+				json.nodes.some((node: Node) => edge.source === node.key) &&
+				json.nodes.some((node: Node) => edge.target === node.key),
+		);
+	}
 
 	return json;
 }
