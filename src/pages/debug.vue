@@ -22,7 +22,7 @@ const search = async () => {
 	loading.value = false;
 };
 
-const network = await getNetwork(undefined, "Semper");
+const network = await getNetwork();
 console.log(network);
 </script>
 <template>

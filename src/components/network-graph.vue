@@ -25,8 +25,7 @@ onMounted(async () => {
 	context.graph.height(props.height);
 
 	context.graph.nodeId("key");
-	context.graph.nodeLabel("label");
-	context.graph.linkLabel("label");
+	context.graph.nodeLabel((node: Node) => `${node.attributes.label}<br />${node.attributes.type}`);
 
 	context.graph.nodeAutoColorBy((node: Node) => node.attributes.type);
 
