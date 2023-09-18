@@ -22,7 +22,7 @@ const search = async () => {
 	loading.value = false;
 };
 
-const network = await getNetwork();
+const network = await getNetwork(undefined, "Semper");
 console.log(network);
 </script>
 <template>
@@ -30,7 +30,7 @@ console.log(network);
 		<Head>
 			<Title>Extremely secret debug screen</Title>
 		</Head>
-		<NetworkGraph :data="network" />
+		<NetworkGraph :data="network" :width="800" :height="400" />
 		<div class="grid grid-cols-2 w-fit h-fit">
 			<span>query</span>
 			<input type="text" v-model="query.q" class="border" />

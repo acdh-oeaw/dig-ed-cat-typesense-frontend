@@ -91,7 +91,7 @@ const search: Function = async (
 const pageNum: ComputedRef<number> = computed(() => Number(route.query.page) || 1);
 const limitNum: ComputedRef<number> = computed(() => Number(route.query.limit) || 25);
 
-const windowWidth: ComputedRef<number> = computed(() => window.innerWidth);
+const windowWidth: ComputedRef<number> = computed(() => (process.browser ? window.innerWidth : 0));
 
 watch(
 	route,
@@ -139,7 +139,7 @@ watch(
 			<disclosure
 				as="div"
 				v-slot="{ open }"
-				class="flex flex-col pt-10"
+				class="flex flex-col md:pt-10"
 				:default-open="windowWidth > 768"
 			>
 				<disclosure-button
@@ -257,7 +257,7 @@ watch(
 						</nuxt-link>
 					</div>
 					<div class="hidden md:block">Institution(s)</div>
-					<div class="hidden md:block">url</div>
+					<div class="hidden md:block">Url</div>
 					<div class="text-right hidden md:block">Time</div>
 					<template v-for="hit in results?.hits">
 						<div class="md:col-span-5 border-t" />
