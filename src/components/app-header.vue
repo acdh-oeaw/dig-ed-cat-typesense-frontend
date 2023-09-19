@@ -8,6 +8,7 @@ import {
 	MagnifyingGlassIcon,
 	MapIcon,
 	ChevronDownIcon,
+	ShareIcon,
 	QuestionMarkCircleIcon,
 	DocumentIcon,
 	PresentationChartLineIcon,
@@ -46,6 +47,14 @@ import { HomeIcon } from "@heroicons/vue/24/solid";
 						href="/map"
 					>
 						Map
+					</nuxt-link>
+				</div>
+				<div>
+					<nuxt-link
+						class="text-lg rounded p-4 hover:bg-slate-200 active:bg-slate-300 transition select-none"
+						href="/network"
+					>
+						Network
 					</nuxt-link>
 				</div>
 				<div>
@@ -189,6 +198,18 @@ import { HomeIcon } from "@heroicons/vue/24/solid";
 								>
 									<MapIcon class="w-6 h-6 group-hover:scale-110 group-active:scale-90 transition" />
 									Map
+								</nuxt-link>
+							</MenuItem>
+							<MenuItem as="div" @click="close">
+								<nuxt-link
+									@click="close"
+									class="text-lg p-4 hover:bg-slate-200 items-center active:bg-slate-300 transition flex gap-4 group select-none"
+									href="/network"
+								>
+									<ShareIcon
+										class="w-6 h-6 group-hover:scale-110 group-active:scale-90 transition"
+									/>
+									Network
 								</nuxt-link>
 							</MenuItem>
 							<MenuItem as="div" @click="close">

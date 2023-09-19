@@ -180,8 +180,8 @@ export interface Node {
 }
 export interface Edge {
 	key: string;
-	source: Node["key"];
-	target: Node["key"];
+	source: Node["key"] | Node;
+	target: Node["key"] | Node;
 	attributes?: {
 		type: string;
 	};

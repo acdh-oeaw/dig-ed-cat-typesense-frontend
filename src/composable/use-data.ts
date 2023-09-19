@@ -55,23 +55,5 @@ export async function getFacets<CollectionEntry extends Record<string, any>>(
 export async function getNetwork(type?: string[], label?: string) {
 	const response = await network();
 	const json = await response.json();
-	console.log("json before", { ...json });
-
-	if (label) {
-		json.nodes = json.nodes.filter(
-			(node: Node) => node.attributes?.label.toLowerCase().includes(label.toLowerCase()),
-		);
-	}
-	if (type) {
-		json.nodes = json.nodes.filter((node: Node) => type.includes(node.attributes?.type));
-	}
-	if (type || label) {
-		json.edges = json.edges.filter(
-			(edge: Edge) =>
-				json.nodes.some((node: Node) => edge.source === node.key) &&
-				json.nodes.some((node: Node) => edge.target === node.key),
-		);
-	}
-
 	return json;
 }

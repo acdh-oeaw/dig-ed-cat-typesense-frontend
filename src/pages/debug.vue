@@ -23,7 +23,6 @@ const search = async () => {
 };
 
 const network = await getNetwork();
-console.log(network);
 </script>
 <template>
 	<div class="flex flex-col">
