@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { ref, useRoute, type Ref } from "#imports";
-import ExternalLink from "@/components/external-link.vue";
-import institutionCard from "@/components/institution-card.vue";
-import { getDocument } from "@/composable/use-data";
+import { ref, useRoute, type Ref, filterNetwork } from "#imports";
+import NetworkGraph from "@/components/network-graph.vue";
+import InstitutionCard from "@/components/institution-card.vue";
+import { getDocument, getNetwork } from "@/composable/use-data";
 import { koi, pseudoBoolTranslation } from "@/utils/mapping-objects";
 import {
 	pseudoBool,
@@ -23,6 +23,15 @@ const results: Ref<Edition> = ref({} as Edition);
 const koiEntries = Object.entries(koi) as [Koi, string][];
 
 results.value = await getDocument(String(id));
+const network = await getNetwork();
+const filteredNetwork = ref(
+	filterNetwork(
+		{ ...network },
+		{
+			related_to: [`edition__${route.params.id}`],
+		},
+	),
+);
 loading.value = false;
 </script>
 <template>
@@ -70,16 +79,23 @@ loading.value = false;
 					<h1 class="m-5 mb-0 text-2xl text-center">
 						Institution{{ results["institution-s"].length === 1 ? "" : "s" }}:
 					</h1>
-					<institution-card
+					<InstitutionCard
 						v-if="results['institution-s'].length != 1"
 						:institutions="results['institution-s'] as Institution[]"
 						class="m-5 mb-0"
 					/>
-					<institution-card
+					<InstitutionCard
 						v-else
 						:institution="results['institution-s'][0] as Institution"
 						class="m-5 mb-0"
 					/>
+					<div class="m-5 mb-0 h-72 border rounded">
+						<ClientOnly>
+							<VisContainer v-slot="{ width, height }">
+								<NetworkGraph :data="filteredNetwork" :width="width" :height="height" />
+							</VisContainer>
+						</ClientOnly>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -1,4 +1,5 @@
 import { koi } from "@/utils/mapping-objects";
+import type { typeColors } from "../../.nuxt/imports";
 
 export const pseudoBool = ["0", "0.5", "1", "1.5", "2", "not provided"] as const;
 export type PseudoBool = (typeof pseudoBool)[number];
@@ -186,3 +187,19 @@ export interface Edge {
 		type: string;
 	};
 }
+
+export interface FilterObject {
+	query?: string;
+	types?: string[];
+	related_to?: string | string[];
+}
+
+export interface TypeColors {
+	City: string;
+	Edition: string;
+	Institution: string;
+	Country: string;
+	Person: string;
+}
+
+export type Types = keyof TypeColors;
