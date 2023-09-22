@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import type { Network, FilterObject } from "@/utils/types";
+import type { NetworkGraphData, FilterObject } from "@/utils/types";
 import { types as allTypes, typeColors } from "@/utils/network-utils";
 import { ref, type Ref } from "vue";
 
 const props = defineProps<{
-	data: Network;
+	data: NetworkGraphData;
 }>();
 
 const types: Ref<string[]> = ref(allTypes);

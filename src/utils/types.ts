@@ -1,5 +1,6 @@
 import { koi } from "@/utils/mapping-objects";
 import type { typeColors } from "../../.nuxt/imports";
+import { NetworkGraph } from "../../.nuxt/components";
 
 export const pseudoBool = ["0", "0.5", "1", "1.5", "2", "not provided"] as const;
 export type PseudoBool = (typeof pseudoBool)[number];
@@ -201,5 +202,9 @@ export interface TypeColors {
 	Country: string;
 	Person: string;
 }
-
 export type Types = keyof TypeColors;
+
+export interface NetworkGraphData {
+	nodes: Map<Node["key"], Node>;
+	links: Map<Edge["key"], Edge>;
+}

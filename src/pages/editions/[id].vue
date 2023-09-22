@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, useRoute, type Ref, filterNetwork } from "#imports";
+import { ref, useRoute, type Ref, createGraph } from "#imports";
 import NetworkGraph from "@/components/network-graph.vue";
 import InstitutionCard from "@/components/institution-card.vue";
 import { getDocument, getNetwork } from "@/composable/use-data";
@@ -24,14 +24,7 @@ const koiEntries = Object.entries(koi) as [Koi, string][];
 
 results.value = await getDocument(String(id));
 const network = await getNetwork();
-const filteredNetwork = ref(
-	filterNetwork(
-		{ ...network },
-		{
-			related_to: [`edition__${route.params.id}`],
-		},
-	),
-);
+const filteredNetwork = ref(createGraph({ ...network }));
 loading.value = false;
 </script>
 <template>
@@ -92,7 +85,12 @@ loading.value = false;
 					<div class="m-5 mb-0 h-72 border rounded">
 						<ClientOnly>
 							<VisContainer v-slot="{ width, height }">
-								<NetworkGraph :data="filteredNetwork" :width="width" :height="height" />
+								<NetworkGraph
+									:data="filteredNetwork"
+									:width="width"
+									:height="height"
+									:selected="`edition__${id}`"
+								/>
 							</VisContainer>
 						</ClientOnly>
 					</div>

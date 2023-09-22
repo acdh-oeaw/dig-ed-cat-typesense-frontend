@@ -3,7 +3,7 @@ import { getNetwork } from "@/composable/use-data";
 import GraphToolbar from "@/components/graph-toolbar.vue";
 import { computed, definePageMeta, navigateTo, ref, type Ref } from "#imports";
 import type { FilterObject, Node } from "@/utils/types";
-import { filterNetwork } from "@/utils/network-utils";
+import { createGraph } from "@/utils/network-utils";
 import VisContainer from "@/components/vis-container.vue";
 
 const network = await getNetwork();
@@ -11,16 +11,7 @@ const network = await getNetwork();
 const query: Ref<string> = ref("");
 const types: Ref<string[]> = ref(["Edition", "Institution", "City", "Country", "Person"]);
 
-const data = computed(() => {
-	if (!network) return {};
-	return filterNetwork(
-		{ ...network },
-		{
-			query: query.value,
-			types: types.value,
-		},
-	);
-});
+const data = createGraph({ ...network });
 
 const changeNodeVisibility = ref((filterObject: FilterObject) => {
 	query.value = filterObject.query || "";
@@ -60,7 +51,7 @@ definePageMeta({
 				@inputChange="changeNodeVisibility"
 				class="absolute z-20 right-0 bottom-0 m-2"
 			/>
-			<Centered v-slot="{ width, height }">
+			<Centered>
 				<VisContainer v-slot="{ width, height }">
 					<NetworkGraph :data="data" :width="width" :height="height" @nodeClick="clickEvent" />
 				</VisContainer>
