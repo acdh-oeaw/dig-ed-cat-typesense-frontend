@@ -24,8 +24,6 @@ const props = defineProps<{
 
 const route: RouteLocationNormalized = useRoute();
 
-console.log("query", route.query);
-
 let facetModel: Ref<string[] | undefined> = ref(props.selected);
 let loading: Ref<boolean> = ref(true);
 
