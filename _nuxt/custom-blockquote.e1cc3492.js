@@ -1,1 +1,0 @@
-import{_ as t,o,c as s,j as r}from"./entry.584f1841.js";const c={},n={class:"border-l text-gray-600 p-2 my-2 text-lg"};function a(e,l){return o(),s("div",n,[r(e.$slots,"default")])}const d=t(c,[["render",a]]);export{d as C};
