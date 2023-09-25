@@ -1,21 +1,20 @@
 <script lang="ts" setup>
 import { getNetwork } from "@/composable/use-data";
 import GraphToolbar from "@/components/graph-toolbar.vue";
-import { computed, definePageMeta, navigateTo, ref, type Ref } from "#imports";
-import type { FilterObject, Node } from "@/utils/types";
-import { createGraph } from "@/utils/network-utils";
+import { computed, definePageMeta, navigateTo, ref, type ComputedRef, type Ref } from "#imports";
+import type { FilterObject, NetworkGraphData, Node } from "@/utils/types";
+import { createGraph, filterGraph } from "@/utils/network-utils";
 import VisContainer from "@/components/vis-container.vue";
 
-const network = await getNetwork();
+const network = createGraph(await getNetwork());
 
-const query: Ref<string> = ref("");
-const types: Ref<string[]> = ref(["Edition", "Institution", "City", "Country", "Person"]);
-
-const data = createGraph({ ...network });
+const data: Ref<NetworkGraphData> = ref(network);
 
 const changeNodeVisibility = ref((filterObject: FilterObject) => {
-	query.value = filterObject.query || "";
-	types.value = filterObject.types || [];
+	data.value = filterGraph(network, {
+		types: filterObject.types || [],
+		query: filterObject.query || "",
+	});
 });
 
 const clickEvent = (node: Node) => {

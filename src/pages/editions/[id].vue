@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, useRoute, type Ref, createGraph } from "#imports";
+import { ref, useRoute, type Ref, createGraph, filterGraph } from "#imports";
 import NetworkGraph from "@/components/network-graph.vue";
 import InstitutionCard from "@/components/institution-card.vue";
 import { getDocument, getNetwork } from "@/composable/use-data";
@@ -24,7 +24,9 @@ const koiEntries = Object.entries(koi) as [Koi, string][];
 
 results.value = await getDocument(String(id));
 const network = await getNetwork();
-const filteredNetwork = ref(createGraph({ ...network }));
+const filteredNetwork = ref(
+	filterGraph(createGraph({ ...network }), { related_to: `edition__${id}` }),
+);
 loading.value = false;
 </script>
 <template>

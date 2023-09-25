@@ -1,41 +1,7 @@
-import type { Network, Node, Edge, FilterObject, TypeColors } from "@/utils/types";
+import type { Network, Node, FilterObject, TypeColors, NetworkGraphData } from "@/utils/types";
 import type { GraphData } from "force-graph";
 
-// export const filterNetwork = (data: Network, obj: FilterObject) => {
-// 	console.log("filterNetwork", obj, data);
-// 	const retObject = { ...data };
-
-// 	if (obj.related_to) {
-// 	}
-// 	if (obj.types) {
-// 		retObject.nodes = retObject.nodes.filter(
-// 			(node: Node) => obj.types?.includes(node.attributes?.type),
-// 		);
-// 	}
-// 	if (obj.query) {
-// 		retObject.nodes = retObject.nodes.filter(
-// 			(node: Node) =>
-// 				node.attributes?.label.toLowerCase().includes((obj.query || "").toLowerCase()),
-// 		);
-// 	}
-
-// 	// remove edges with no nodes
-// 	if (obj.query || obj.types || obj.related_to) {
-// 		retObject.edges = retObject.edges.filter((edge: Edge) => {
-// 			return (
-// 				retObject.nodes.some((node: Node) => (edge.source.key || edge.source) === node.key) &&
-// 				retObject.nodes.some((node: Node) => (edge.target.key || edge.target) === node.key)
-// 			);
-// 		});
-// 	}
-// 	console.log("filteredNetwork", retObject);
-
-// 	return retObject as Network;
-// };
-
-export function createGraph(data: GraphData) {
-	console.log(data);
-
+export const createGraph = (data: GraphData) => {
 	const graph = { nodes: new Map(), links: new Map() };
 	data.nodes.forEach((node: Node) => {
 		graph.nodes.set(node.key, {
@@ -45,13 +11,61 @@ export function createGraph(data: GraphData) {
 	});
 	data.edges.forEach((link) => {
 		graph.links.set(link.key, link);
-		graph.nodes.get(link.source).neighbors.add(link.target);
-		graph.nodes.get(link.target).neighbors.add(link.source);
+		if (typeof link.source === "string") {
+			graph.nodes.get(link.source).neighbors.add(link.target);
+			graph.nodes.get(link.target).neighbors.add(link.source);
+		} else {
+			graph.nodes.get(link.source.key).neighbors.add(link.target.key);
+			graph.nodes.get(link.target.key).neighbors.add(link.source.key);
+		}
 	});
 
-	console.log(graph);
 	return graph;
-}
+};
+
+export const filterGraph = (data: NetworkGraphData, filterObject: FilterObject) => {
+	const ret: NetworkGraphData = { ...data };
+
+	if (filterObject.types) {
+		ret.nodes = new Map(
+			[...ret.nodes.entries()].filter(
+				([key, node]) => filterObject.types?.includes(node.attributes.type),
+			),
+		);
+	}
+	if (filterObject.query) {
+		ret.nodes = new Map(
+			[...ret.nodes.entries()].filter(([key, node]) =>
+				node.attributes.label.includes(String(filterObject.query)),
+			),
+		);
+	}
+	if (filterObject.related_to) {
+		ret.nodes = new Map(
+			[...ret.nodes.entries()].filter(([key, node]) => {
+				if (filterObject.related_to === node.key) return true;
+				for (const key of node.neighbors) {
+					if (filterObject.related_to === key) return true;
+				}
+				return false;
+			}),
+		);
+	}
+	if (Object.keys(filterObject).length) {
+		ret.links = new Map(
+			[...ret.links.entries()].filter(([key, link]) => {
+				if (typeof link.source === "string" && typeof link.target === "string")
+					return ret.nodes.has(link.source) && ret.nodes.has(link.target);
+				else if (typeof link.source === "object" && typeof link.target === "object") {
+					return ret.nodes.has(link.source.key) && ret.nodes.has(link.target.key);
+				}
+				return false;
+			}),
+		);
+	}
+
+	return ret;
+};
 
 export const getTypes = (data: Network) => [
 	...new Set(data.nodes.map((node: Node) => node.attributes.type)),

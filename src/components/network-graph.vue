@@ -37,40 +37,17 @@ onMounted(async () => {
 	context.graph.width(props.width);
 	context.graph.height(props.height);
 
-	// context.graph.nodeVisibility((node: Node) => {
-	// 	(props.types ? props.types.includes(node.attributes.type) : true) &&
-	// 		(props.query ? node.attributes.label.includes(props.query) : true);
-	// });
 	context.graph.onNodeClick((node) => {
 		emit("nodeClick", node as Node);
 	});
 
-	context.graph.nodeVisibility((node) => {
-		if (!props.selected) return true;
-		if (props.selected === node.key) return true;
-		for (const key of node.neighbors) {
-			if (props.selected === key) return true;
-		}
-		return false;
-	});
-	context.graph.linkVisibility((edge) => {
-		if (!props.selected) return true;
-		// @ts-expect-error At this point `d3` has replaced `source` with `NodeObject`.
-		const source = edge.source.key;
-		// @ts-expect-error At this point `d3` has replaced `target` with `NodeObject`.
-		const target = edge.target.key;
-		if (props.selected === source) return true;
-		if (props.selected === target) return true;
-		return false;
-	});
-
-	context.graph.nodeVal(3);
-	context.graph.nodeColor((node: Node) => typeColors[node.attributes.type]);
+	context.graph.nodeVal((node) => node.neighbors.size + 1);
+	context.graph.nodeColor((node) => typeColors[node.attributes.type]);
 
 	context.graph.nodeId("key");
-	context.graph.nodeLabel((node: Node) => `${node.attributes.label}<br />${node.attributes.type}`);
+	context.graph.nodeLabel((node) => `${node.attributes.label}<br />${node.attributes.type}`);
 
-	context.graph.nodeAutoColorBy((node: Node) => node.attributes.type);
+	context.graph.nodeAutoColorBy((node) => node.attributes.type);
 	context.graph.linkDirectionalArrowLength(5);
 
 	updateGraph();

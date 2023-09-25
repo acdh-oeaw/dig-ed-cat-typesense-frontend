@@ -177,8 +177,9 @@ export interface Node {
 	key: string;
 	attributes: {
 		label: string;
-		type: "Edition" | "Institution";
+		type: "Edition" | "Institution" | "Person" | "City" | "Country";
 	};
+	neighbors: Set<Node["key"]>;
 }
 export interface Edge {
 	key: string;
@@ -196,6 +197,7 @@ export interface FilterObject {
 }
 
 export interface TypeColors {
+	[index: string]: string;
 	City: string;
 	Edition: string;
 	Institution: string;
