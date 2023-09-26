@@ -91,8 +91,6 @@ const search: Function = async (
 const pageNum: ComputedRef<number> = computed(() => Number(route.query.page) || 1);
 const limitNum: ComputedRef<number> = computed(() => Number(route.query.limit) || 25);
 
-const windowWidth: ComputedRef<number> = computed(() => (process.browser ? window.innerWidth : 0));
-
 watch(
 	route,
 	(newRoute) => {
@@ -140,7 +138,6 @@ watch(
 				as="div"
 				v-slot="{ open }"
 				class="flex flex-col md:pt-10"
-				:default-open="windowWidth > 768"
 			>
 				<disclosure-button
 					class="flex items-center justify-end gap-2 rounded align-top text-xl transition hover:bg-slate-200 active:bg-slate-300 lg:justify-center"
