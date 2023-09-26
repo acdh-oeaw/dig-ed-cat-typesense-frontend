@@ -19,8 +19,8 @@ definePageMeta({
 		<Head>
 			<Title>Map of all DigEdCat Institutions</Title>
 		</Head>
-		<client-only>
-			<leaflet-map name="full-map" :points="coords" class="absolute min-w-full min-h-full" />
-		</client-only>
+		<ClientOnly>
+			<LeafletMap name="full-map" :points="coords" class="absolute min-w-full min-h-full" />
+		</ClientOnly>
 	</div>
 </template>

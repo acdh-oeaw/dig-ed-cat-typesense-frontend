@@ -1,17 +1,12 @@
 <script lang="ts" setup>
 import { useRoute, ref, type Ref, watch, computed, type ComputedRef } from "#imports";
 import centered from "@/components/centered.vue";
-import externalLink from "@/components/external-link.vue";
-import internalLink from "@/components/internal-link.vue";
+import ExternalLink from "@/components/external-link.vue";
+import InternalLink from "@/components/internal-link.vue";
+import InstitutionLinks from "@/components/institution-links.vue";
 import { getDocuments } from "@/composable/use-data";
 import { emptyDeFactoFacets } from "@/utils/mapping-objects";
-import type {
-	Edition,
-	DeFactoFacets,
-	DeFactoFacetsKey,
-	Institution,
-	FacetField,
-} from "@/utils/types";
+import type { Edition, DeFactoFacets, DeFactoFacetsKey, FacetField } from "@/utils/types";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 import { ChevronUpIcon, ArrowPathIcon, ChevronUpDownIcon } from "@heroicons/vue/24/solid";
 import type { SearchResponse } from "typesense/lib/Typesense/Documents";
@@ -96,8 +91,6 @@ const search: Function = async (
 const pageNum: ComputedRef<number> = computed(() => Number(route.query.page) || 1);
 const limitNum: ComputedRef<number> = computed(() => Number(route.query.limit) || 25);
 
-const windowWidth: ComputedRef<number> = computed(() => window.innerWidth);
-
 watch(
 	route,
 	(newRoute) => {
@@ -144,8 +137,7 @@ watch(
 			<disclosure
 				as="div"
 				v-slot="{ open }"
-				class="flex flex-col pt-10"
-				:default-open="windowWidth > 768"
+				class="flex flex-col md:pt-10"
 			>
 				<disclosure-button
 					class="flex items-center justify-end gap-2 rounded align-top text-xl transition hover:bg-slate-200 active:bg-slate-300 lg:justify-center"
@@ -262,7 +254,7 @@ watch(
 						</nuxt-link>
 					</div>
 					<div class="hidden md:block">Institution(s)</div>
-					<div class="hidden md:block">url</div>
+					<div class="hidden md:block">Url</div>
 					<div class="text-right hidden md:block">Time</div>
 					<template v-for="hit in results?.hits">
 						<div class="md:col-span-5 border-t" />
@@ -271,7 +263,7 @@ watch(
 							{{ hit.document.id }}
 						</div>
 						<div class="-ml-2 self-center">
-							<internal-link :href="'/editions/' + hit.document.id">
+							<InternalLink :href="'/editions/' + hit.document.id">
 								<span
 									v-if="hit.highlight['edition-name']?.snippet"
 									v-html="hit.highlight['edition-name']?.snippet"
@@ -279,14 +271,10 @@ watch(
 								<span v-else>
 									{{ hit.document["edition-name"] }}
 								</span>
-							</internal-link>
+							</InternalLink>
 						</div>
 						<div class="self-center">
-							{{
-								(hit.document["institution-s"] as Institution[])
-									.map((inst: Institution) => inst["institution-name"])
-									.join(", ")
-							}}
+							<InstitutionLinks :institutions="hit.document['institution-s']" no-icons />
 						</div>
 						<div class="items-center flex">
 							<ExternalLink class="hidden md:flex text-black" :href="hit.document.url" icon-only />

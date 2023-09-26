@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { getDocuments } from "@/composable/use-data";
+import { getDocuments, getNetwork } from "@/composable/use-data";
 import type { Edition } from "@/utils/types";
 import { ref } from "vue";
 
@@ -21,12 +21,15 @@ const search = async () => {
 
 	loading.value = false;
 };
+
+const network = await getNetwork();
 </script>
 <template>
 	<div class="flex flex-col">
 		<Head>
 			<Title>Extremely secret debug screen</Title>
 		</Head>
+		<NetworkGraph :data="network" :width="800" :height="400" />
 		<div class="grid grid-cols-2 w-fit h-fit">
 			<span>query</span>
 			<input type="text" v-model="query.q" class="border" />

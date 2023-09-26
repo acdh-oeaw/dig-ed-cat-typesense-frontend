@@ -1,11 +1,6 @@
-import { useDefaultClient, useAsyncData } from "#imports";
-import { log } from "console";
-import {
-	type SearchParams,
-	type SearchParamsWithPreset,
-	type SearchResponse,
-} from "typesense/lib/Typesense/Documents";
-import { type Ref } from "vue";
+import { useDefaultClient, network } from "#imports";
+import type { SearchParams, SearchParamsWithPreset } from "typesense/lib/Typesense/Documents";
+import type { Edge, Node } from "@/utils/types";
 import type { LocationQuery } from "vue-router";
 
 export async function getDocument<CollectionEntry extends Record<string, any>>(id: string) {
@@ -55,4 +50,10 @@ export async function getFacets<CollectionEntry extends Record<string, any>>(
 			facet_query: `${facets}:${facetQuery}`,
 			max_facet_values: max,
 		});
+}
+
+export async function getNetwork(type?: string[], label?: string) {
+	const response = await network();
+	const json = await response.json();
+	return json;
 }
