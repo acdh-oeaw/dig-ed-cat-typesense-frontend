@@ -1,4 +1,5 @@
 import { koi } from "@/utils/mapping-objects";
+import NetworkGraph from "@/components/network-graph.vue";
 
 export const pseudoBool = ["0", "0.5", "1", "1.5", "2", "not provided"] as const;
 export type PseudoBool = (typeof pseudoBool)[number];
@@ -156,3 +157,57 @@ export interface DeFactoFacets {
 export type DeFactoFacetsKey = keyof DeFactoFacets;
 export type EditionKey = keyof Edition;
 export type Koi = keyof typeof koi;
+
+export interface Network {
+	attributes: {
+		name: string;
+		description: string;
+	};
+	options: {
+		type: string;
+		multi: boolean;
+		allowSelfLoops: boolean;
+	};
+	nodes: Node[];
+	edges: Edge[];
+}
+
+export interface Node {
+	key: string;
+	attributes: {
+		label: string;
+		type: "Edition" | "Institution" | "Person" | "City" | "Country";
+	};
+	neighbors: Set<Node["key"]>;
+}
+
+export interface Edge {
+	key: string;
+	source: Node["key"] | Node;
+	target: Node["key"] | Node;
+	attributes?: {
+		type: string;
+	};
+}
+export interface NetworkNode extends Node, NodeObject {}
+
+export interface FilterObject {
+	query?: string;
+	types?: string[];
+	related_to?: string | string[];
+}
+
+export interface TypeColors {
+	[index: string]: string;
+	City: string;
+	Edition: string;
+	Institution: string;
+	Country: string;
+	Person: string;
+}
+export type Types = keyof TypeColors;
+
+export interface NetworkGraphData {
+	nodes: Map<Node["key"], Node>;
+	links: Map<Edge["key"], Edge>;
+}
