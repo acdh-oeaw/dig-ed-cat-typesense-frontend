@@ -23,7 +23,7 @@ const query: Ref<string> = ref("");
 			/>
 			<XMarkIcon
 				v-if="query"
-				class="h-5 w-5 text-gray-600 shrink-0 self-center mr-1 cursor-pointer"
+				class="h-5 w-5 text-gray-600 shrink-0 self-center cursor-pointer pr-2"
 				@click="
 					query = '';
 					$emit('inputChange', { query, types } as FilterObject);
