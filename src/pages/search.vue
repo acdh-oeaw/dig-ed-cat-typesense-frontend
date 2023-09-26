@@ -91,8 +91,6 @@ const search: Function = async (
 const pageNum: ComputedRef<number> = computed(() => Number(route.query.page) || 1);
 const limitNum: ComputedRef<number> = computed(() => Number(route.query.limit) || 25);
 
-const windowWidth: ComputedRef<number> = computed(() => (process.browser ? window.innerWidth : 0));
-
 watch(
 	route,
 	(newRoute) => {
@@ -136,12 +134,7 @@ watch(
 		<div
 			class="grid min-w-full h-full gap-4 divide-y md:divide-y-0 p-4 grid-rows-[auto_1fr] md:grid-rows-1 md:grid-cols-[1fr_4fr] 2xl:grid-cols-[1fr_3fr_1fr] 2xl:gap-32 2xl:divide-y-0 2xl:px-16"
 		>
-			<disclosure
-				as="div"
-				v-slot="{ open }"
-				class="flex flex-col md:pt-10"
-				:default-open="windowWidth > 768"
-			>
+			<disclosure as="div" v-slot="{ open }" class="flex flex-col md:pt-10">
 				<disclosure-button
 					class="flex items-center justify-end gap-2 rounded align-top text-xl transition hover:bg-slate-200 active:bg-slate-300 lg:justify-center"
 				>
