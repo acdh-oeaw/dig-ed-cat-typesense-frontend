@@ -1,0 +1,1 @@
+import{_ as o,o as s,c as t,k as c}from"./entry.ae3f527f.js";const r={},n={class:"p-[2px_4px] bg-red-50 text-red-500 rounded-sm"};function d(e,_){return s(),t("code",n,[c(e.$slots,"default")])}const l=o(r,[["render",d]]);export{l as C};
