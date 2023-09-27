@@ -20,13 +20,13 @@ const changeNodeVisibility = ref((filterObject: FilterObject) => {
 const clickEvent = (node: Node) => {
 	switch (node.attributes.type) {
 		case "Edition":
-			navigateTo(`editions/${node.index + 1}`);
+			navigateTo(`/editions/${node.index + 1}`);
 			break;
-		case "Institution":
+			case "Institution":
 			navigateTo({
-				path: "search",
+				path: "/search",
 				query: {
-					facets: encodeURIComponent(`[institution-s.institution-name:=${node.attributes.label}]`),
+					facets: encodeURIComponent(`institution-s.institution-name:=["${node.attributes.label}"]`),
 				},
 			});
 			break;

@@ -4,10 +4,10 @@ import centered from "@/components/centered.vue";
 import ExternalLink from "@/components/external-link.vue";
 import InternalLink from "@/components/internal-link.vue";
 import InstitutionLinks from "@/components/institution-links.vue";
+import FacetDisclosure from "/components/facet-disclosure.vue";
 import { getDocuments } from "@/composable/use-data";
 import { emptyDeFactoFacets } from "@/utils/mapping-objects";
-import type { Edition, DeFactoFacets, DeFactoFacetsKey, FacetField } from "@/utils/types";
-import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
+import type { Edition, DeFactoFacets, DeFactoFacetsKey } from "@/utils/types";
 import { ChevronUpIcon, ArrowPathIcon, ChevronUpDownIcon } from "@heroicons/vue/24/solid";
 import type { SearchResponse } from "typesense/lib/Typesense/Documents";
 import type { RouteLocationNormalized, LocationQuery } from "vue-router";
@@ -21,27 +21,14 @@ let loading: Ref<boolean> = ref(true);
 
 let facetValues: Ref<DeFactoFacets> = ref(emptyDeFactoFacets);
 
-const facetObjectToTypesenseQuery: Function = (
-	facetObject: DeFactoFacets,
-	encode: boolean = false,
-) => {
-	const retArray: string[] = [];
-	Object.entries(facetObject).forEach(([key, value]) => {
-		if (value && value.length != 0) {
-			retArray.push(key + ":=[`" + value.join("`,`") + "`]");
-		}
-	});
-	const query: string = retArray.join("&&");
-
-	return encode ? encodeURIComponent(query).replace("=", "") : query;
-};
-
 const typesenseQueryToFacetObject = (typeQuery: string, decode: boolean = false) => {
 	const query: string = decode ? decodeURIComponent(typeQuery) : typeQuery;
 	const facetArray: string[] = query.split("&&");
 	const retObject: DeFactoFacets = { ...facetValues.value };
 	facetArray.forEach((facetString: string) => {
+		
 		const facetSplit = facetString.split(":=") as DeFactoFacetsKey[];
+		console.log(String(facetSplit[1])?.replaceAll("`", '"'));
 		retObject[facetSplit[0] as DeFactoFacetsKey] = JSON.parse(
 			String(facetSplit[1])?.replaceAll("`", '"'),
 		);
@@ -134,40 +121,12 @@ watch(
 		<div
 			class="grid min-w-full h-full gap-4 divide-y md:divide-y-0 p-4 grid-rows-[auto_1fr] md:grid-rows-1 md:grid-cols-[1fr_4fr] 2xl:grid-cols-[1fr_3fr_1fr] 2xl:gap-32 2xl:divide-y-0 2xl:px-16"
 		>
-			<disclosure
-				as="div"
-				v-slot="{ open }"
-				class="flex flex-col md:pt-10"
-			>
-				<disclosure-button
-					class="flex items-center justify-end gap-2 rounded align-top text-xl transition hover:bg-slate-200 active:bg-slate-300 lg:justify-center"
-				>
-					{{ open ? "Hide" : "Show" }} Filters...
-					<ChevronUpIcon class="h-5 w-5 rotate-180 ui-open:rotate-0" />
-				</disclosure-button>
-				<disclosure-panel as="div" class="flex flex-col gap-2 divide-y">
-					<facet-field
-						class="pt-2"
-						v-if="!loading"
-						v-for="facet in (results?.facet_counts as FacetField[]).sort(
-							(a, b) => facetValues[b.field_name].length - facetValues[a.field_name].length,
-						)"
-						:field-name="facet.field_name"
-						:facets="facet.counts"
-						:selected="facetValues[facet.field_name]"
-						@facetChange="
-							facetValues[facet.field_name] = $event;
-							$router.push({
-								query: {
-									...route.query,
-									facets: facetObjectToTypesenseQuery(facetValues, true),
-									page: 1,
-								},
-							});
-						"
-					/>
-				</disclosure-panel>
-			</disclosure>
+			<FacetDisclosure
+				class="hidden md:flex"
+				:loading="loading"
+				:results="results"
+				:facetValues="facetValues"
+			/>
 			<centered class="-z-10" v-if="loading || !results?.found">
 				<ArrowPathIcon v-if="loading" class="h-5 w-5 animate-spin" />
 				<span class="text-gray-400 italic" v-else>Nothing found.</span>
@@ -254,7 +213,7 @@ watch(
 						</nuxt-link>
 					</div>
 					<div class="hidden md:block">Institution(s)</div>
-					<div class="hidden md:block">Url</div>
+					<div class="hidden md:block text-center">Url</div>
 					<div class="text-right hidden md:block">Time</div>
 					<template v-for="hit in results?.hits">
 						<div class="md:col-span-5 border-t" />
@@ -292,6 +251,12 @@ watch(
 					</div>
 				</div>
 			</div>
+			<FacetDisclosure
+				class="md:hidden"
+				:loading="loading"
+				:results="results"
+				:facetValues="facetValues"
+			/>
 		</div>
 	</div>
 </template>

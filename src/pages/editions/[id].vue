@@ -64,6 +64,9 @@ loading.value = false;
 						<span v-else-if="typeof results[key] === 'object'">
 							{{ Array(results[key]).join(", ") }}
 						</span>
+						<span v-else-if="val === 'URL'">
+							<ExternalLink :href="String(results[key])" />
+						</span>
 						<span v-else>
 							{{ results[key] }}
 						</span>
