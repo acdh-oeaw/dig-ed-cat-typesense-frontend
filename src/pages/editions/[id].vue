@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { ref, useRoute, type Ref, createGraph, filterGraph } from "#imports";
+import { ref, useRoute, type Ref } from "#imports";
 import NetworkGraph from "@/components/network-graph.vue";
 import InstitutionCard from "@/components/institution-card.vue";
 import { getDocument, getNetwork } from "@/composable/use-data";
 import { koi, pseudoBoolTranslation } from "@/utils/mapping-objects";
+import {createGraph, filterGraph} from "@/utils/network-utils"
 import {
 	pseudoBool,
 	type Institution,

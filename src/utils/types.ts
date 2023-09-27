@@ -1,5 +1,6 @@
 import { koi } from "@/utils/mapping-objects";
 import NetworkGraph from "@/components/network-graph.vue";
+import type { NodeObject } from "force-graph";
 
 export const pseudoBool = ["0", "0.5", "1", "1.5", "2", "not provided"] as const;
 export type PseudoBool = (typeof pseudoBool)[number];
@@ -189,7 +190,9 @@ export interface Edge {
 		type: string;
 	};
 }
-export interface NetworkNode extends Node, NodeObject {}
+export interface NetworkNode extends Node, NodeObject {
+	index: number
+}
 
 export interface FilterObject {
 	query?: string;

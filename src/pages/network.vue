@@ -2,7 +2,7 @@
 import { getNetwork } from "@/composable/use-data";
 import GraphToolbar from "@/components/graph-toolbar.vue";
 import { computed, definePageMeta, navigateTo, ref, type ComputedRef, type Ref } from "#imports";
-import type { FilterObject, NetworkGraphData, Node } from "@/utils/types";
+import type { FilterObject, NetworkGraphData, NetworkNode } from "@/utils/types";
 import { createGraph, filterGraph } from "@/utils/network-utils";
 import VisContainer from "@/components/vis-container.vue";
 
@@ -17,7 +17,7 @@ const changeNodeVisibility = ref((filterObject: FilterObject) => {
 	});
 });
 
-const clickEvent = (node: Node) => {
+const clickEvent = (node: NetworkNode) => {
 	switch (node.attributes.type) {
 		case "Edition":
 			navigateTo(`/editions/${node.index + 1}`);
